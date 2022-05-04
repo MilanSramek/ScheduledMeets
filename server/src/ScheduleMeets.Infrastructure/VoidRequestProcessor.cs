@@ -4,7 +4,7 @@ using MediatR;
 
 using ScheduledMeets.Business.Interfaces;
 
-namespace ScheduleMeets.Infrastructure;
+namespace ScheduledMeets.Infrastructure;
 
 class VoidRequestProcessor<TRequest> : IProcessor<TRequest> where TRequest : IRequest
 {

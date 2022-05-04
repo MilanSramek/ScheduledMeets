@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using ScheduledMeets.Business.Interfaces;
 
-namespace ScheduleMeets.Infrastructure
+namespace ScheduledMeets.Infrastructure
 {
     public static class InfrastructureRegistrations
     {

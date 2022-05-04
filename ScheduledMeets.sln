@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Connectivity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.TestTools", "server\src\ScheduledMeets.TestsTool\ScheduledMeets.TestTools.csproj", "{C1D9E371-7F62-4716-B7E0-C482F9CF6F0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleMeets.Infrastructure", "server\src\ScheduleMeets.Infrastructure\ScheduleMeets.Infrastructure.csproj", "{3FE338D9-DB7A-4095-A667-1A9CD0F4D682}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Infrastructure", "server\src\ScheduleMeets.Infrastructure\ScheduledMeets.Infrastructure.csproj", "{3FE338D9-DB7A-4095-A667-1A9CD0F4D682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

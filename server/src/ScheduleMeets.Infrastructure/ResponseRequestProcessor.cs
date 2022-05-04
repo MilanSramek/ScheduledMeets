@@ -2,7 +2,7 @@
 
 using ScheduledMeets.Business.Interfaces;
 
-namespace ScheduleMeets.Infrastructure
+namespace ScheduledMeets.Infrastructure
 {
     class ResponseRequestProcessor<TRequest, TResponse> : IProcessor<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
