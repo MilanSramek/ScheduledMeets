@@ -24,7 +24,7 @@ public class SignInResolver
             cancellationToken);
 
         ClaimsIdentity userIdentity = new();
-        userIdentity.AddClaim(new(ClaimTypes.Name, user.Username));
+        userIdentity.AddClaim(new(ClaimTypes.Sid, user.Id.ToString()));
 
         ClaimsPrincipal userPrincipal = new(userIdentity);
 

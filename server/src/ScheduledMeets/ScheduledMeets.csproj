@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.Connectivity\ScheduledMeets.Connectivity.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Persistance\ScheduledMeets.Persistance.csproj" />
     <ProjectReference Include="..\ScheduleMeets.Infrastructure\ScheduleMeets.Infrastructure.csproj" />
   </ItemGroup>

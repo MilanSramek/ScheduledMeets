@@ -13,7 +13,7 @@ using System.Security.Cryptography;
 
 namespace ScheduledMeets.Business.OAuth;
 
-public class JsonWebTokenValidator : ITokenValidator
+class JsonWebTokenValidator : ITokenValidator
 {
     private readonly IProvider<DiscoveryDocumentResponse> _discoveryProvider;
     private readonly IProvider<JsonWebKeySetResponse> _keySetProvider;
