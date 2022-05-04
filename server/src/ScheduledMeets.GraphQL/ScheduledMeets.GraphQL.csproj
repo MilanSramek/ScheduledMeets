@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../../ScheduledMeets.props" />
+  
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.Abstractions" />
+    <PackageReference Include="HotChocolate.Types" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
+  </ItemGroup>
+</Project>

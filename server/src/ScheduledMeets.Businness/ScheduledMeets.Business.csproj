@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\ScheduledMeets.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Dawn.Guard" />
+    <PackageReference Include="IdentityModel" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Internals\ScheduledMeets.Internals.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.Model\ScheduledMeets.Core.csproj" />
+  </ItemGroup>
+
+</Project>

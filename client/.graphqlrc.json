@@ -1,0 +1,10 @@
+{
+  "client": {
+    "service": {
+      "name": "scheduled-meets",
+      "url": "http://localhost:7265/graphql/introspection",
+      "skipSSLValidation": true
+    },
+    "includes": ["./src/**/*.graphql.ts"]
+  }
+}

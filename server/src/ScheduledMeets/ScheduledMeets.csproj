@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\ScheduledMeets.props" />
+  
+  <PropertyGroup>
+    <OutputType>exe</OutputType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SpaRoot>..\client</SpaRoot>
+    <SpaProxyServerUrl>https://localhost:3000</SpaProxyServerUrl>
+    <SpaProxyLaunchCommand>npm run start:open</SpaProxyLaunchCommand>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore" />
+    <PackageReference Include="HotChocolate.Execution" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.Persistance\ScheduledMeets.Persistance.csproj" />
+    <ProjectReference Include="..\ScheduleMeets.Infrastructure\ScheduleMeets.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

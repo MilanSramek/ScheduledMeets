@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\ScheduledMeets.props" />
+  <Import Project="..\..\..\ScheduledMeets.Tests.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Moq" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
+  </ItemGroup>
+
+</Project>

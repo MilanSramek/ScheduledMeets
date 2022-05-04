@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\ScheduledMeets.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Dawn.Guard" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
+  </ItemGroup>
+
+</Project>
