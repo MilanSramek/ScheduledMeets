@@ -22,7 +22,7 @@ namespace ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal
         {
             Guard.Argument(request, nameof(request)).NotNull();
 
-            User user = CreateUserBy(request.Principal);
+            User user = CreateUserBy(request.ClaimsPrincipal);
             await _users.SaveAsync(user);
 
             return user;

@@ -10,9 +10,9 @@ namespace ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal;
 
 public record CreateUserByClaimsPrincipalRequest : IRequest<User>
 {
-    public CreateUserByClaimsPrincipalRequest(ClaimsPrincipal principal)
-        => Principal = Guard.Argument(principal, nameof(principal)).NotNull().Value;
+    public CreateUserByClaimsPrincipalRequest(ClaimsPrincipal claimsPrincipal)
+        => ClaimsPrincipal = Guard.Argument(claimsPrincipal, nameof(claimsPrincipal)).NotNull().Value;
 
-    public ClaimsPrincipal Principal { get; }
+    public ClaimsPrincipal ClaimsPrincipal { get; }
 }
 
