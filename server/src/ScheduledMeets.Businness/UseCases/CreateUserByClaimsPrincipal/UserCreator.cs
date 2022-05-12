@@ -17,11 +17,15 @@ namespace ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal
         public UserCreator(IRepository<User> users) =>
             _users = Guard.Argument(users, nameof(users)).NotNull().Value;
 
-        public Task<User> Handle(CreateUserByClaimsPrincipalRequest request,
+        public async Task<User> Handle(CreateUserByClaimsPrincipalRequest request,
             CancellationToken cancellationToken)
         {
             Guard.Argument(request, nameof(request)).NotNull();
-            return _users.Save(CreateUserBy(request.Principal));
+
+            User user = CreateUserBy(request.Principal);
+            await _users.SaveAsync(user);
+
+            return user;
         }
 
         private static User CreateUserBy(ClaimsPrincipal principal)

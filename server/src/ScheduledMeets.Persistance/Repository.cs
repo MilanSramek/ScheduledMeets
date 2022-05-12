@@ -1,4 +1,8 @@
-﻿using ScheduledMeets.Business.Interfaces;
+﻿using Dawn;
+
+using Microsoft.EntityFrameworkCore;
+
+using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
 
 using System.Collections;
@@ -6,34 +10,50 @@ using System.Linq.Expressions;
 
 namespace ScheduledMeets.Persistance;
 
-class Repository<TEntity> : IRepository<IEntity> where TEntity : class, IEntity
+class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
 {
-    public Type ElementType { get; }
-    public Expression Expression { get; }
-    public IQueryProvider Provider { get; }
+    private readonly DbSet<TEntity> _set;
 
-    public Task<IEntity> Delete(int id)
+    public Repository(AccessContext context)
     {
-        throw new NotImplementedException();
+        Guard.Argument(context, nameof(context)).NotNull();
+        _set = context.Set<TEntity>();
     }
 
-    public IAsyncEnumerator<IEntity> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+    #region Reads
+
+    public Type ElementType => (_set as IQueryable<TEntity>).ElementType;
+    public Expression Expression => (_set as IQueryable<TEntity>).Expression;
+    public IQueryProvider Provider => (_set as IQueryable<TEntity>).Provider;
+    IEnumerator IEnumerable.GetEnumerator() => (_set as IEnumerable).GetEnumerator();
+    public IEnumerator<TEntity> GetEnumerator() => (_set as IEnumerable<TEntity>).GetEnumerator();
+    public IAsyncEnumerator<TEntity> GetAsyncEnumerator(CancellationToken cancellationToken) =>
+        _set.GetAsyncEnumerator(cancellationToken);
+
+    #endregion Reads
+
+    #region Writes
+
+    public async Task SaveAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Guard.Argument(entity, nameof(entity)).NotNull();
+
+        if (entity.Id > 0)
+        {
+            _set.Update(entity).DetectChanges();
+            return;
+        }
+
+        await _set.AddAsync(entity, cancellationToken);
     }
 
-    public IEnumerator<IEntity> GetEnumerator()
+    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Guard.Argument(entity, nameof(entity)).NotNull();
+
+        _set.Remove(entity);
+        return Task.CompletedTask;
     }
 
-    public Task<IEntity> Save(IEntity entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    #endregion Writes
 }

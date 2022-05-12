@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 using ScheduledMeets.Business.Interfaces;
+using ScheduledMeets.Core;
 
 namespace ScheduledMeets.Persistance;
 

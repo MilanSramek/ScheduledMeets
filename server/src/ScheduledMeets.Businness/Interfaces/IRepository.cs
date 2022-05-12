@@ -4,6 +4,6 @@ namespace ScheduledMeets.Business.Interfaces;
 
 public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity : IEntity
 {
-    public Task<TEntity> Save(TEntity entity);
-    public Task<TEntity> Delete(int id);
+    public Task SaveAsync(TEntity entity, CancellationToken cancellationToken = default);
+    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 }
