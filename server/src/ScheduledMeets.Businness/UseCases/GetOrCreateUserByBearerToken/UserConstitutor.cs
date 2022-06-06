@@ -38,6 +38,7 @@ class UserConstitutor : IRequestHandler<GetOrCreateUserByBearerTokenRequest, Use
 
         User? user = await _userProvider
                 .ProcessAsync(new GetUserByClaimsPrincipalRequest(principal), cancellationToken);
+
         if (user is not null)
             return user;
 

@@ -24,6 +24,7 @@
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
     <PackageVersion Include="NUnit" Version="3.13.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageVersion Include="RangeTree" Version="3.0.1" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
   </ItemGroup>
 </Project>
