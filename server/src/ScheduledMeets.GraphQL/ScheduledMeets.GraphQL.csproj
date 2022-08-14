@@ -8,5 +8,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.Core\ScheduledMeets.Core.csproj" />
   </ItemGroup>
 </Project>

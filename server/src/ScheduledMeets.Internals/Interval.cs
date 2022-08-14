@@ -13,16 +13,6 @@ public struct Interval<T> : IEquatable<Interval<T>> where T : IComparable<T>
     public T From { get; }
     public T To { get; }
 
-    public Interval<T>? Intersection(Interval<T> other)
-    {
-        T from = Math.Max(From, other.From);
-        T to = Math.Min(To, other.To);
-
-        return from.CompareTo(to) < 0
-            ? new(from, to)
-            : null;
-    }
-
     public bool Contains(Interval<T> other) => From.CompareTo(other.From) <= 0 
         && To.CompareTo(other.To) >= 0;
 
@@ -36,4 +26,6 @@ public struct Interval<T> : IEquatable<Interval<T>> where T : IComparable<T>
     public static bool operator ==(Interval<T> left, Interval<T> right) => left.Equals(right);
 
     public static bool operator !=(Interval<T> left, Interval<T> right) => !(left == right);
+
+    public override int GetHashCode() => HashCode.Combine(From, To);
 }

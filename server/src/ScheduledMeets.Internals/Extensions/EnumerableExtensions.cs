@@ -2,14 +2,34 @@
 
 public static class EnumerableExtensions
 {
-    public static IReadOnlyList<T> Evaluate<T>(this IEnumerable<T> collection!!) => collection switch
+    public static IReadOnlyList<T> Evaluate<T>(this IEnumerable<T> sequence)
     {
-        IReadOnlyList<T> list => list,
-        IEnumerable<T> other => other.ToList()
-    };
+        ArgumentNullException.ThrowIfNull(sequence);
 
-    public static (T Min, T Max) MinMax<T>(this IEnumerable<T> collection!!)
+        if (sequence is IReadOnlyList<T> list)
+            return list;
+
+        if (sequence is IReadOnlyCollection<T> { Count: > 0 } 
+            || sequence is ICollection<T> { Count: > 0 })
+        {
+            return sequence.ToList();
+        }
+
+        IEnumerator<T> enumerator = sequence.GetEnumerator();
+        if (!enumerator.MoveNext())
+            return Array.Empty<T>();
+
+        List<T> result = new();
+        do result.Add(enumerator.Current);
+        while (enumerator.MoveNext());
+
+        return result;
+    }
+
+    public static (T Min, T Max) MinMax<T>(this IEnumerable<T> collection)
     {
+        ArgumentNullException.ThrowIfNull(collection);
+
         IEnumerator<T> enumerator = collection.GetEnumerator();
         if (!enumerator.MoveNext()) throw new InvalidOperationException("Collection is empty.");
 

@@ -8,12 +8,8 @@ public class User : IEntity
     }
 
     public long Id { get; }
-
     public string Username { get; }
-
     public PersonName? Name { get; set; }
-
     public string? Nickname { get; set; }
-
     public string? Email { get; set; }
 }

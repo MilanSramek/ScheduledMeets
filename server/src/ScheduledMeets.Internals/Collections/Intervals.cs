@@ -52,7 +52,7 @@ public class Intervals<T> : IEnumerable<Interval<T>> where T : IComparable<T>
     public IEnumerator<Interval<T>> GetEnumerator()
     {
         foreach (RangeValuePair<T, Interval<T>> item in _tree)
-            yield return new(item.From, item.To);
+            yield return item.Value;
     }
 
     public void Subtract(Interval<T> interval)

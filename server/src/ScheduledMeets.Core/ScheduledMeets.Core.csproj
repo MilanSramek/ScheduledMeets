@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../../../ScheduledMeets.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Internals\ScheduledMeets.Internals.csproj" />
+  </ItemGroup>
+
+</Project>

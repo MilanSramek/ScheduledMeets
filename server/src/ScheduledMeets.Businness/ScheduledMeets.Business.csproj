@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Core\ScheduledMeets.Core.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Internals\ScheduledMeets.Internals.csproj" />
-    <ProjectReference Include="..\ScheduledMeets.Model\ScheduledMeets.Core.csproj" />
   </ItemGroup>
 
 </Project>
