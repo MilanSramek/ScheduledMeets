@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/__generated__
+/**/__generated__
 /.pnp
 .pnp.js
 

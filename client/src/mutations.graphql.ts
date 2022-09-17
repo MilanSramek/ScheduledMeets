@@ -9,7 +9,7 @@ export const SIGN_IN = gql`
 `;
 
 export const TEST = gql`
-  query SenA {
+  query Sen {
     Sentence
   }
 `;
