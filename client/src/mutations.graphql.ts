@@ -7,3 +7,9 @@ export const SIGN_IN = gql`
     }
   }
 `;
+
+export const TEST = gql`
+  query Sen {
+    Sentence
+  }
+`;

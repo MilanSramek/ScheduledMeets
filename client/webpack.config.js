@@ -1,6 +1,10 @@
-require('dotenv').config({ path: '.env.development' });
+const dotenv = require('dotenv');
+dotenv.config();
+dotenv.config({ path: '.env.development' });
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -21,6 +25,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    fallback: {
+      fs: false,
+      path: false,
+      os: false,
+    },
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -31,10 +40,10 @@ module.exports = {
         cert: process.env.SSL_CRT_FILE,
       },
     },
-    static: './public',
-    port: '3000',
+    static: './dist',
+    port: process.env.HOST_PORT,
     proxy: {
-      '/graphql': {
+      [`${process.env.HOST_GRAPHQL_ENDPOINT}`]: {
         target: process.env.SERVER_UNSECURED_URL,
         secure: false,
         changeOrigin: true,
@@ -42,8 +51,13 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'env.HOST_GRAPHQL_ENDPOINT': JSON.stringify(
+        process.env.HOST_GRAPHQL_ENDPOINT
+      ),
+    }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, './public/index.html'),
+      template: path.join(__dirname, './src/index.html'),
     }),
   ],
 };
