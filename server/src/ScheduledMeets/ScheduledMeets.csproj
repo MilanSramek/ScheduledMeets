@@ -13,16 +13,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" />
-    <PackageReference Include="HotChocolate.Execution" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Connectivity\ScheduledMeets.Connectivity.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.GraphQL\ScheduledMeets.GraphQL.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Persistance\ScheduledMeets.Persistance.csproj" />
     <ProjectReference Include="..\ScheduleMeets.Infrastructure\ScheduledMeets.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\launchSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

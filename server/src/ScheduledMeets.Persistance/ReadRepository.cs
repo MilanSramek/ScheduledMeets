@@ -29,7 +29,7 @@ class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, 
     {
         return _base.AsAsyncEnumerable().GetAsyncEnumerator(cancellationToken);
     }
-    
+
 
     public IEnumerator<TEntity> GetEnumerator() => _base.GetEnumerator();
 

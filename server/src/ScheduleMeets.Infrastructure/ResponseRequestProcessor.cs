@@ -9,13 +9,9 @@ class ResponseRequestProcessor<TRequest, TResponse> : IProcessor<TRequest, TResp
 {
     private readonly ISender _sender;
 
-    public ResponseRequestProcessor(ISender sender)
-    {
+    public ResponseRequestProcessor(ISender sender) =>
         _sender = sender ?? throw new ArgumentNullException(nameof(sender));
-    }
 
-    public Task<TResponse> ProcessAsync(TRequest request, CancellationToken cancellationToken)
-    {
-        return _sender.Send(request, cancellationToken);
-    }
+    public Task<TResponse> ProcessAsync(TRequest request, CancellationToken cancellationToken)  =>
+        _sender.Send(request, cancellationToken);
 }

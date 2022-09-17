@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using MediatR;
+﻿using MediatR;
 
 using ScheduledMeets.Business.Interfaces;
 
@@ -11,7 +9,7 @@ class VoidRequestProcessor<TRequest> : IProcessor<TRequest> where TRequest : IRe
     private readonly ISender _sender;
 
     public VoidRequestProcessor(ISender sender) =>
-        _sender = Guard.Argument(sender).NotNull().Value;
+        _sender = sender ?? throw new ArgumentNullException(nameof(sender));
 
     public Task ProcessAsync(TRequest request, CancellationToken cancellationToken) =>
         _sender.Send(request, cancellationToken);

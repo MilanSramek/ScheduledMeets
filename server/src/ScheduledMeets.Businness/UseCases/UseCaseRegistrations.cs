@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using MediatR;
+﻿using MediatR;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,10 +14,14 @@ namespace ScheduledMeets.Business.UseCases;
 
 static class UseCaseRegistrations
 {
-    public static IServiceCollection AddUseCases(this IServiceCollection services) =>
-        Guard.Argument(services).NotNull().Value
+    public static IServiceCollection AddUseCases(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        return services
             .AddScoped<IRequestHandler<GetOrCreateUserByBearerTokenRequest, User>, UserConstitutor>()
             .AddScoped<IRequestHandler<CreateUserByClaimsPrincipalRequest, User>, UserCreator>()
             .AddScoped<IRequestHandler<GetUserByClaimsPrincipalRequest, User?>, UserProvider>()
             .AddScoped<IRequestHandler<DecodeJsonWebBearerTokenRequest, ClaimsPrincipal>, JsonWebBearerTokenHandler>();
+    }
 }

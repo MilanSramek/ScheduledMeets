@@ -1,6 +1,4 @@
-﻿using HotChocolate;
-
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 
 using ScheduledMeets.Business.Interfaces;
@@ -9,7 +7,7 @@ using ScheduledMeets.Core;
 
 using System.Security.Claims;
 
-namespace ScheduledMeets.Business.Fasade;
+namespace ScheduledMeets.GraphQL;
 
 public class SignInResolver
 {
@@ -23,7 +21,7 @@ public class SignInResolver
             new GetOrCreateUserByBearerTokenRequest(idToken),
             cancellationToken);
 
-        ClaimsIdentity userIdentity = new();
+        ClaimsIdentity userIdentity = new(ClaimTypes.Sid);
         userIdentity.AddClaim(new(ClaimTypes.Sid, user.Id.ToString()));
 
         ClaimsPrincipal userPrincipal = new(userIdentity);

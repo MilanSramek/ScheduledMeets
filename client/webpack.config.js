@@ -35,7 +35,7 @@ module.exports = {
     port: '3000',
     proxy: {
       '/graphql': {
-        target: process.env.SERVER_URL,
+        target: process.env.SERVER_UNSECURED_URL,
         secure: false,
         changeOrigin: true,
       },

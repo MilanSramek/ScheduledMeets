@@ -1,6 +1,6 @@
 ﻿using HotChocolate.Types;
 
-namespace ScheduledMeets.Business.Fasade;
+namespace ScheduledMeets.GraphQL;
 
 public class MutationsType : ObjectType
 {

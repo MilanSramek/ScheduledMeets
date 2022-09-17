@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Core.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Core", "server\src\ScheduledMeets.Core\ScheduledMeets.Core.csproj", "{634B1949-B49B-4327-8B7D-AD985037E4A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduledMeets.View", "server\src\ScheduledMeets.View\ScheduledMeets.View.csproj", "{33B6C5F9-64DA-4631-8455-E440D7626366}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +208,18 @@ Global
 		{634B1949-B49B-4327-8B7D-AD985037E4A0}.Release|x64.Build.0 = Release|Any CPU
 		{634B1949-B49B-4327-8B7D-AD985037E4A0}.Release|x86.ActiveCfg = Release|Any CPU
 		{634B1949-B49B-4327-8B7D-AD985037E4A0}.Release|x86.Build.0 = Release|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Debug|x64.Build.0 = Debug|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Debug|x86.Build.0 = Debug|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Release|x64.ActiveCfg = Release|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Release|x64.Build.0 = Release|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Release|x86.ActiveCfg = Release|Any CPU
+		{33B6C5F9-64DA-4631-8455-E440D7626366}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,6 +239,7 @@ Global
 		{3FE338D9-DB7A-4095-A667-1A9CD0F4D682} = {C78ED904-DACA-4E5F-8876-5CB90FECB792}
 		{5577261D-B3C3-4791-A8A4-A376EBFEA7CA} = {C78ED904-DACA-4E5F-8876-5CB90FECB792}
 		{634B1949-B49B-4327-8B7D-AD985037E4A0} = {C78ED904-DACA-4E5F-8876-5CB90FECB792}
+		{33B6C5F9-64DA-4631-8455-E440D7626366} = {C78ED904-DACA-4E5F-8876-5CB90FECB792}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09F32C5B-6E6A-4778-89B5-CEE8ED57A769}

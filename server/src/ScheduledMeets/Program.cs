@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 
 using ScheduledMeets;
 using ScheduledMeets.Business;
 using ScheduledMeets.Connectivity;
+using ScheduledMeets.GraphQL;
 using ScheduledMeets.Infrastructure;
+using ScheduledMeets.Internals.Authorization;
 using ScheduledMeets.Persistance;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -13,8 +16,14 @@ builder.Services
     .AddBusiness()
     .AddPersistance()
     .AddConnectivity()
-    .AddCommonServices();
+    .AddCommonServices()
+    .AddGraphQL();
 
+WebApplication application = builder.Build();
 
-WebApplication? application = builder.Build();
-application?.Run();
+if (application.Environment.IsDevelopment())
+    application.UseDeveloperIdentity();
+
+application
+    .UseGraphQL()
+    .Run();

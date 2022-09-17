@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
@@ -10,13 +8,14 @@ using System.Linq.Expressions;
 
 namespace ScheduledMeets.Persistance;
 
-class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
+class Repository<TEntity> : IRepository<TEntity>, IReadRepository<TEntity> 
+    where TEntity : class, IEntity
 {
     private readonly DbSet<TEntity> _set;
 
     public Repository(AccessContext context)
     {
-        Guard.Argument(context, nameof(context)).NotNull();
+        ArgumentNullException.ThrowIfNull(context);
         _set = context.Set<TEntity>();
     }
 
@@ -34,9 +33,9 @@ class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
 
     #region Writes
 
-    public async Task SaveAsync(TEntity entity, CancellationToken cancellationToken)
+    public async ValueTask SaveAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        Guard.Argument(entity, nameof(entity)).NotNull();
+        ArgumentNullException.ThrowIfNull(entity);
 
         if (entity.Id > 0)
         {
@@ -47,12 +46,12 @@ class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
         await _set.AddAsync(entity, cancellationToken);
     }
 
-    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
+    public ValueTask DeleteAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        Guard.Argument(entity, nameof(entity)).NotNull();
+        ArgumentNullException.ThrowIfNull(entity);
 
         _set.Remove(entity);
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     #endregion Writes

@@ -1,13 +1,10 @@
-﻿using Dawn;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 using ScheduledMeets.Business.Interfaces;
-using ScheduledMeets.Core;
 
 namespace ScheduledMeets.Persistance;
 
@@ -17,7 +14,9 @@ public static class PersistanceRegistrations
        this IServiceCollection services,
        Action<NpgsqlDbContextOptionsBuilder>? npgsqlOptionsAction = null)
     {
-        return Guard.Argument(services).NotNull().Value
+        ArgumentNullException.ThrowIfNull(services);
+
+        return services
             .AddAccessContext(npgsqlOptionsAction)
             .AddRepositories();
     }

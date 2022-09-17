@@ -15,4 +15,3 @@ public record CreateUserByClaimsPrincipalRequest : IRequest<User>
 
     public ClaimsPrincipal ClaimsPrincipal { get; }
 }
-

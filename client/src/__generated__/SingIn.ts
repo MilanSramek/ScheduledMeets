@@ -7,8 +7,13 @@
 // GraphQL mutation operation: SingIn
 // ====================================================
 
+export interface SingIn_signIn {
+  __typename: "User";
+  id: any;
+}
+
 export interface SingIn {
-  signIn: boolean;
+  signIn: SingIn_signIn;
 }
 
 export interface SingInVariables {
