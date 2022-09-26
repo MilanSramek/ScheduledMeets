@@ -22,7 +22,11 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": {
+      "components": ["src/components"],
+      "pages": ["src/pages"]
+    }
   },
   "include": ["src"]
 }

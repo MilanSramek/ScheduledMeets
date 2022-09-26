@@ -30,6 +30,10 @@ module.exports = {
       path: false,
       os: false,
     },
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      pages: path.resolve(__dirname, 'src/pages/'),
+    },
   },
   devtool: 'inline-source-map',
   devServer: {
