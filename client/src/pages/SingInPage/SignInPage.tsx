@@ -3,12 +3,19 @@ import { useMutation } from '@apollo/client';
 
 import { env } from 'config';
 import { SignInWithGoogleButton } from 'components';
+import { graphql } from 'gql';
 
-import { SIGN_IN } from './mutation.graphql';
-import { SignIn, SignInVariables } from './__generated__/SignIn';
+export const SIGN_IN = graphql(`
+  mutation SignIn($idToken: String!) {
+    signIn(idToken: $idToken) {
+      id
+      username
+    }
+  }
+`);
 
 export const SignInPage: FC = () => {
-  const [signIn] = useMutation<SignIn, SignInVariables>(SIGN_IN);
+  const [signIn] = useMutation(SIGN_IN);
 
   const makeSignIn = useCallback((idToken: string) => {
     console.log(idToken);

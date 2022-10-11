@@ -26,7 +26,8 @@
     "paths": {
       "components": ["src/components"],
       "pages": ["src/pages"],
-      "config": ["src/config"]
+      "config": ["src/config"],
+      "gql": ["src/gql"]
     }
   },
   "include": ["src"]

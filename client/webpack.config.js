@@ -34,6 +34,7 @@ module.exports = {
       components: path.resolve(__dirname, 'src/components/'),
       pages: path.resolve(__dirname, 'src/pages/'),
       config: path.resolve(__dirname, 'src/config/'),
+      gql: path.resolve(__dirname, 'src/gql/'),
     },
   },
   devtool: 'inline-source-map',
