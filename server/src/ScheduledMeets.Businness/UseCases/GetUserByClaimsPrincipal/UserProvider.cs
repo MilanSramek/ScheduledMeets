@@ -1,8 +1,4 @@
-﻿using Dawn;
-
-using IdentityModel;
-
-using MediatR;
+﻿using MediatR;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
@@ -18,13 +14,16 @@ namespace ScheduledMeets.Business.UseCases.GetUserByClaimsPrincipal
         private readonly IReadRepository<User> _users;
 
         public UserProvider(IReadRepository<User> users)
-            => _users = Guard.Argument(users, nameof(users)).NotNull().Value;
+        {
+            ArgumentNullException.ThrowIfNull(users);
+            _users = users;
+        }
 
         public async Task<User?> Handle(GetUserByClaimsPrincipalRequest request,
             CancellationToken cancellationToken = default)
         {
-            ClaimsPrincipal claimsPrincipal = Guard.Argument(request).NotNull().Value
-                .ClaimsPrincipal;
+            ArgumentNullException.ThrowIfNull(request);
+            ClaimsPrincipal claimsPrincipal = request.ClaimsPrincipal;
 
             if (!claimsPrincipal.Identities.Any())
                 throw new ApplicationException($"Claims principal carries no user identity.");

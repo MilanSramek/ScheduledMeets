@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using MediatR;
+﻿using MediatR;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Business.OAuth;
@@ -14,13 +12,15 @@ namespace ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal
     {
         private readonly IRepository<User> _users;
 
-        public UserCreator(IRepository<User> users) =>
-            _users = Guard.Argument(users, nameof(users)).NotNull().Value;
+        public UserCreator(IRepository<User> users)
+        {
+            _users = users ?? throw new ArgumentNullException(nameof(users));
+        }
 
         public async Task<User> Handle(CreateUserByClaimsPrincipalRequest request,
             CancellationToken cancellationToken)
         {
-            Guard.Argument(request, nameof(request)).NotNull();
+            ArgumentNullException.ThrowIfNull(request);
 
             User user = CreateUserBy(request.ClaimsPrincipal);
             await _users.SaveAsync(user, cancellationToken);

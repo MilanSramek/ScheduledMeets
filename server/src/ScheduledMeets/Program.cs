@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 using ScheduledMeets;
 using ScheduledMeets.Business;
@@ -9,21 +11,54 @@ using ScheduledMeets.Infrastructure;
 using ScheduledMeets.Internals.Authorization;
 using ScheduledMeets.Persistance;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+using Serilog;
+using Serilog.Core;
 
-builder.Services
-    .AddInfrastructure()
-    .AddBusiness()
-    .AddPersistance()
-    .AddConnectivity()
-    .AddCommonServices()
-    .AddGraphQL();
+using System.Reflection;
 
-WebApplication application = builder.Build();
+Logger logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("log.txt")
+    .CreateLogger();
 
-if (application.Environment.IsDevelopment())
-    application.UseDeveloperIdentity();
+try
+{
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+    builder.Logging
+        .ClearProviders()
+        .AddSerilog(logger, true);
 
-application
-    .UseGraphQL()
-    .Run();
+    if (builder.Environment.IsDevelopment())
+        builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly());
+
+    builder.Services
+        .AddInfrastructure()
+        .AddBusiness(builder.Configuration)
+        .AddPersistance()
+        .AddConnectivity(builder.Configuration)
+        .AddCommonServices()
+        .AddGraphQL();
+
+    using WebApplication application = builder.Build();
+
+    application
+        .UseHttpLogging();
+
+    if (application.Environment.IsDevelopment())
+        application.UseDeveloperIdentity();
+
+    application
+        .UseAuthentication()
+        .UseAuthorization();
+    application
+        .UseGraphQL(application.Environment);
+
+    application
+        .Run();
+}
+catch (Exception exception)
+{
+    logger.Fatal(exception, "Host terminated unexpectedly");
+}

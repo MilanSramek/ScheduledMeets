@@ -4,7 +4,7 @@ import { ScriptEventType, ScriptStatus } from './types';
 const dataStatusAttributeName = 'data-status';
 
 /* Original source: react-google-one-tap-login */
-export const useScript = (src: string): string => {
+export const useScript = (src: string): ScriptStatus => {
   const [status, setStatus] = useState<ScriptStatus>(
     src ? ScriptStatus.loading : ScriptStatus.idle
   );

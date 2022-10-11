@@ -12,8 +12,14 @@
     <SpaProxyLaunchCommand>npm run start:open</SpaProxyLaunchCommand>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <UserSecretsId>29bf6942-79ca-4cd3-83f6-df40d8d6ce8c</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>

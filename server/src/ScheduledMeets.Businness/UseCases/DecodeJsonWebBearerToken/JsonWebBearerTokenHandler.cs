@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using MediatR;
+﻿using MediatR;
 
 using ScheduledMeets.Business.OAuth;
 
@@ -14,13 +12,14 @@ namespace ScheduledMeets.Business.UseCases.DecodeJsonWebBearerToken
 
         public JsonWebBearerTokenHandler(ITokenValidator tokenValidator)
         {
-            _tokenValidator = Guard.Argument(tokenValidator, nameof(tokenValidator)).NotNull().Value;
+            _tokenValidator = tokenValidator 
+                ?? throw new ArgumentNullException(nameof(tokenValidator));
         }
 
         public Task<ClaimsPrincipal> Handle(DecodeJsonWebBearerTokenRequest request,
             CancellationToken cancellationToken)
         {
-            Guard.Argument(request, nameof(request)).NotNull();
+            ArgumentNullException.ThrowIfNull(request);
             return _tokenValidator.ValidateAsync(request.Token, cancellationToken);
         }
     }

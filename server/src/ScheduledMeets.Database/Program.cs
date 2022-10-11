@@ -28,7 +28,7 @@ public class Program
                     _.ConnectionString = connectionString;
                     _.Password = password;
                 })
-                .AddPersistance(_ => 
+                .AddAccessContext(_ => 
                     _.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
         });
 }

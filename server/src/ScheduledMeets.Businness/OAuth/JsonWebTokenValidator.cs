@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Internals.Extensions;
 
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -33,7 +35,10 @@ class JsonWebTokenValidator : ITokenValidator
             ?? throw new ArgumentNullException(nameof(discoveryProvider));
         _keySetProvider = keySetProvider ?? throw new ArgumentNullException(nameof(keySetProvider));
         _settings = options.Value;
-        _tokenHandler = new();
+        _tokenHandler = new()
+        {
+            MapInboundClaims = false
+        };
     }
 
     public async Task<ClaimsPrincipal> ValidateAsync(string token,

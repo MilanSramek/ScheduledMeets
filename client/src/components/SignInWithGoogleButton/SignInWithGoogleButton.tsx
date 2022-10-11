@@ -1,14 +1,15 @@
 import { FC, useEffect, useRef } from 'react';
+import { Switch, Case, Default } from 'react-when-then';
+
+import { env } from 'config';
 import { SignInWithGoogleButtonProps, ScriptStatus, Type } from './types';
 import { useScript } from './useScript';
-
-const googleClientScriptURL: string = 'https://accounts.google.com/gsi/client';
 
 export const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = ({
   clientId,
   callback,
 }) => {
-  const scriptState = useScript(googleClientScriptURL);
+  const scriptState = useScript(env.GOOGLE_GSI_CLIENT_URL);
   const buttonTarget = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,5 +27,15 @@ export const SignInWithGoogleButton: FC<SignInWithGoogleButtonProps> = ({
     });
   }, [scriptState, buttonTarget.current]);
 
-  return <div ref={buttonTarget} />;
+  return (
+    <Switch condition={scriptState}>
+      <Case when={ScriptStatus.ready}>
+        <div ref={buttonTarget} />
+      </Case>
+      <Case when={ScriptStatus.idle}>
+        Nenacita se google script! ({env.GOOGLE_GSI_CLIENT_URL})
+      </Case>
+      <Default>Ceka se na google script!</Default>
+    </Switch>
+  );
 };

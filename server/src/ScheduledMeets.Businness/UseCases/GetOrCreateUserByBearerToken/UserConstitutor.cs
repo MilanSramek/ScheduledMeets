@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using MediatR;
+﻿using MediatR;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal;
@@ -23,15 +21,15 @@ class UserConstitutor : IRequestHandler<GetOrCreateUserByBearerTokenRequest, Use
         IProcessor<GetUserByClaimsPrincipalRequest, User?> userProvider,
         IProcessor<CreateUserByClaimsPrincipalRequest, User> userCreator)
     {
-        _tokenValidator = Guard.Argument(tokenValidator).NotNull().Value;
-        _userProvider = Guard.Argument(userProvider).NotNull().Value;
-        _userCreator = Guard.Argument(userCreator).NotNull().Value;
+        _tokenValidator = tokenValidator ?? throw new ArgumentNullException(nameof(tokenValidator));
+        _userProvider = userProvider ?? throw new ArgumentNullException(nameof(userProvider));
+        _userCreator = userCreator ?? throw new ArgumentNullException(nameof(userCreator));
     }
 
     public async Task<User> Handle(GetOrCreateUserByBearerTokenRequest request,
         CancellationToken cancellationToken = default)
     {
-        Guard.Argument(request, nameof(request)).NotNull();
+        ArgumentNullException.ThrowIfNull(request);
 
         ClaimsPrincipal principal = await _tokenValidator
             .ProcessAsync(new DecodeJsonWebBearerTokenRequest(request.Token), cancellationToken);

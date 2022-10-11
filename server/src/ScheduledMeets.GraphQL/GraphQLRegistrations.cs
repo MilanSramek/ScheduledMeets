@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using ScheduledMeets.Internals.Authentication;
+using ScheduledMeets.Internals.GraphQL;
 
 namespace ScheduledMeets.GraphQL;
 
@@ -12,21 +11,11 @@ public static class GraphQLRegistrations
         if (services is null) throw new ArgumentNullException(nameof(services));
 
         services
-            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookieInternal(options =>
-            {
-                options.DisableOnChallangeRedirection();
-                options.DisableOnForbiddenRedirection();
-                options.Cookie.HttpOnly = true;
-            });
-        services
-            .AddAuthorization();
-
-        services
             .AddGraphQLServer()
             .AddAuthorization()
             .AddQueryType<QueriesType>()
-            .AddMutationType<MutationsType>();
+            .AddMutationType<MutationsType>()
+            .AddDiagnosticEventListener<ExecutionErrorLogger>();
 
         return services;
     }

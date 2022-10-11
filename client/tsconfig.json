@@ -25,7 +25,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
       "components": ["src/components"],
-      "pages": ["src/pages"]
+      "pages": ["src/pages"],
+      "config": ["src/config"]
     }
   },
   "include": ["src"]

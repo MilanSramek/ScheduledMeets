@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -18,24 +19,20 @@ public static class PersistanceRegistrations
 
         return services
             .AddAccessContext(npgsqlOptionsAction)
+            .ConfigurePersistance()
             .AddRepositories();
     }
 
-    private static IServiceCollection AddRepositories(this IServiceCollection services) => services
-        .AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>))
-        .AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-
-    private static IServiceCollection AddAccessContext(
+    public static IServiceCollection AddAccessContext(
         this IServiceCollection services,
         Action<NpgsqlDbContextOptionsBuilder>? npgsqlOptionsAction = null)
     {
-        return services.AddDbContext<AccessContext>((serviceProvider, options) =>
+        return services.AddDbContext<AccessContext>((serviceProvider, contextOptions) =>
         {
             (string connectionString, string password) = serviceProvider
-                .GetRequiredService<IOptions<DbConnectionOptions>>()
+                .GetRequiredService<IOptionsSnapshot<DbConnectionOptions>>()
                 .Value;
-            options
+            contextOptions
                 .UseNpgsql(connectionString, opts =>
                 {
                     npgsqlOptionsAction?.Invoke(opts);
@@ -43,5 +40,23 @@ public static class PersistanceRegistrations
                 })
                 .UseSnakeCaseNamingConvention();
         });
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services) => services
+        .AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>))
+        .AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+    private static IServiceCollection ConfigurePersistance(this IServiceCollection services)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.AddOptions<DbConnectionOptions>()
+            .Configure<IConfiguration>((connectionOptions, configuration) =>
+            {
+                connectionOptions.ConnectionString = configuration.GetConnectionString("Database");
+                connectionOptions.Password = configuration.GetValue<string>("Database:Password");
+            });
+
+        return services;
     }
 }

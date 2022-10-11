@@ -1,22 +1,29 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using HotChocolate.AspNetCore.Extensions;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Hosting;
 
+namespace ScheduledMeets.GraphQL;
 
-namespace ScheduledMeets.GraphQL
+public static class GraphQLPipeline
 {
-    public static class GraphQLPipeline
+    public static TApplicationBuilder UseGraphQL<TApplicationBuilder>(
+        this TApplicationBuilder builder,
+        IHostEnvironment environment)
+        where TApplicationBuilder : IApplicationBuilder, IEndpointRouteBuilder
     {
-        public static TApplicationBuilder UseGraphQL<TApplicationBuilder>(
-            this TApplicationBuilder builder)
-            where TApplicationBuilder : IApplicationBuilder, IEndpointRouteBuilder
-        {
-            builder
-                .UseAuthentication()
-                .UseAuthorization();
-            builder
-                .MapGraphQL();
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(environment);
 
-            return builder;
-        }
+        GraphQLEndpointConventionBuilder graphqlBuilder = builder
+            .MapGraphQL();
+
+        graphqlBuilder.WithOptions(new()
+        {
+           EnableSchemaRequests = environment.IsDevelopment()
+        });
+
+        return builder;
     }
 }

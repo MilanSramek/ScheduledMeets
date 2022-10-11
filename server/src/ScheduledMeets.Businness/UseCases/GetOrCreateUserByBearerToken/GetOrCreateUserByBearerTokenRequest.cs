@@ -10,7 +10,7 @@ public record GetOrCreateUserByBearerTokenRequest : IRequest<User>
 {
     public GetOrCreateUserByBearerTokenRequest(string token)
     {
-        Token = Guard.Argument(token, nameof(token)).NotNull().Value;
+        Token = token ?? throw new ArgumentNullException(nameof(token));
     }
 
     public string Token { get; }

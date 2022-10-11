@@ -33,6 +33,7 @@ module.exports = {
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
       pages: path.resolve(__dirname, 'src/pages/'),
+      config: path.resolve(__dirname, 'src/config/'),
     },
   },
   devtool: 'inline-source-map',
@@ -48,8 +49,8 @@ module.exports = {
     port: process.env.HOST_PORT,
     proxy: {
       [`${process.env.HOST_GRAPHQL_ENDPOINT}`]: {
-        target: process.env.SERVER_UNSECURED_URL,
-        secure: false,
+        target: process.env.SERVER_SECURED_URL,
+        secure: false, // Certificate is not checked.
         changeOrigin: true,
       },
     },
@@ -59,9 +60,14 @@ module.exports = {
       'env.HOST_GRAPHQL_ENDPOINT': JSON.stringify(
         process.env.HOST_GRAPHQL_ENDPOINT
       ),
+      'env.GOOGLE_GSI_CLIENT_URL': JSON.stringify(
+        process.env.GOOGLE_GSI_CLIENT_URL
+      ),
+      'env.GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './src/index.html'),
+      favicon: path.join(__dirname, './src/favicon.ico'),
     }),
   ],
 };
