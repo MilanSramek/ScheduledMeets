@@ -46,6 +46,9 @@ module.exports = {
         cert: process.env.SSL_CRT_FILE,
       },
     },
+    historyApiFallback: {
+      index: 'index.html',
+    },
     static: './dist',
     port: process.env.HOST_PORT,
     proxy: {

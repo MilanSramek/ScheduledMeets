@@ -1,12 +1,14 @@
 import { FC } from 'react';
+import { RouterProvider } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
+
 import { client } from './apolloClient';
-import { SignInPage } from './pages';
+import { router } from './router';
 
 export const App: FC = () => {
   return (
     <ApolloProvider client={client}>
-      <SignInPage />
+      <RouterProvider router={router}></RouterProvider>
     </ApolloProvider>
   );
 };

@@ -5,7 +5,7 @@ import { env } from 'config';
 import { SignInWithGoogleButton } from 'components';
 import { graphql } from 'gql';
 
-export const SIGN_IN = graphql(`
+const SIGN_IN = graphql(`
   mutation SignIn($idToken: String!) {
     signIn(idToken: $idToken) {
       id

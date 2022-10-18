@@ -7,7 +7,7 @@
     "codegen": "graphql-codegen --config codegen.config.ts",
     "codegen:watch": "graphql-codegen --config codegen.config.ts --watch",
     "start": "concurrently \"graphql-codegen --config codegen.config.ts --watch\" \"webpack serve\"",
-    "start:open": "webpack serve --open-app-name firefox"
+    "start:open": "concurrently \"graphql-codegen --config codegen.config.ts --watch\" \"webpack serve --open-app-name firefox\""
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.13.6",
