@@ -11,10 +11,12 @@ namespace ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal
     class UserCreator : IRequestHandler<CreateUserByClaimsPrincipalRequest, User>
     {
         private readonly IRepository<User> _users;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserCreator(IRepository<User> users)
+        public UserCreator(IRepository<User> users, IUnitOfWork unitOfWork)
         {
             _users = users ?? throw new ArgumentNullException(nameof(users));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task<User> Handle(CreateUserByClaimsPrincipalRequest request,

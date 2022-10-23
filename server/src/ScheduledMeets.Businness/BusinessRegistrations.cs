@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using ScheduledMeets.Business.OAuth;
+using ScheduledMeets.Business.RequestPipeline;
 using ScheduledMeets.Business.UseCases;
 
 namespace ScheduledMeets.Business;
@@ -15,6 +16,7 @@ public static class BusinessRegistrations
 
         return services
             .AddUseCases()
-            .AddOAuth(configuration);
+            .AddOAuth(configuration)
+            .AddRequestPipeline();
     }
 }

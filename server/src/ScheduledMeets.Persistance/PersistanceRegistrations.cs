@@ -20,7 +20,8 @@ public static class PersistanceRegistrations
         return services
             .AddAccessContext(npgsqlOptionsAction)
             .ConfigurePersistance()
-            .AddRepositories();
+            .AddRepositories()
+            .AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
     public static IServiceCollection AddAccessContext(
