@@ -24,10 +24,12 @@
     "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
+      "src": ["src"],
       "components": ["src/components"],
       "pages": ["src/pages"],
       "config": ["src/config"],
-      "gql": ["src/gql"]
+      "gql": ["src/gql"],
+      "store": ["src/store"]
     }
   },
   "include": ["src"]

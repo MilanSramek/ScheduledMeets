@@ -1,24 +1,28 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Outlet,
   Route,
+  Outlet,
 } from 'react-router-dom';
-import { SignInPage } from './pages/SingInPage';
-import { Routes } from './routes';
+
+import { SignInPage, UserPage } from 'pages';
+import { AuthBarrier } from 'components';
+import { path } from './path';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+      <Route path={path.signIn} element={<SignInPage nextPath={'/user'} />} />
       <Route
-        path={Routes.root}
+        path={'/'}
         element={
-          <>
-            "Ahoj"<Outlet></Outlet>
-          </>
+          <AuthBarrier signInPath={path.signIn}>
+            <Outlet />
+          </AuthBarrier>
         }
       >
-        <Route path={'bla'} element={<SignInPage />}></Route>
+        <Route path={'user'} element={<UserPage />} />
+        <Route path={'*'} element={'NotFound'} />
       </Route>
     </>
   )

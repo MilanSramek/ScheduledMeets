@@ -1,1 +1,2 @@
-export * from './SingInPage';
+export * from './singInPage';
+export * from './userPage';
