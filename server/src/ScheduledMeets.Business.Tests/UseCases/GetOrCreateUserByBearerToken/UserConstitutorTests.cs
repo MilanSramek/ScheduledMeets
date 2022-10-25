@@ -2,13 +2,10 @@
 
 using Moq;
 
-using NUnit.Framework;
-
 using ScheduledMeets.Business.Interfaces;
+using ScheduledMeets.Business.OAuth;
 using ScheduledMeets.Business.UseCases.CreateUserByClaimsPrincipal;
-using ScheduledMeets.Business.UseCases.DecodeJsonWebBearerToken;
 using ScheduledMeets.Business.UseCases.GetOrCreateUserByBearerToken;
-using ScheduledMeets.Business.UseCases.GetUserByClaimsPrincipal;
 using ScheduledMeets.Core;
 
 using System.Security.Claims;
@@ -25,30 +22,28 @@ public class UserConstitutorTests
         ClaimsPrincipal userPrincipal = new(userIdentity);
         User user = new("username");
 
-        Mock<IProcessor<DecodeJsonWebBearerTokenRequest, ClaimsPrincipal>> tokenValidator = new();
+        Mock<ITokenValidator> tokenValidator = new();
         tokenValidator
-            .Setup(_ => _.ProcessAsync(
-                It.Is<DecodeJsonWebBearerTokenRequest>(req => req.Token == token),
+            .Setup(_ => _.ValidateAsync(
+                It.Is<string>(value => value == token),
                 It.IsAny<CancellationToken>()))
-            .Returns<DecodeJsonWebBearerTokenRequest, CancellationToken>((_, _) =>
+            .Returns<string, CancellationToken>((_, _) =>
                 Task.FromResult(userPrincipal))
-            .Verifiable();
+            .Verifiable("There was not attempt to verify the token.");
 
-        Mock<IProcessor<GetUserByClaimsPrincipalRequest, User?>> userProvider = new();
-#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+        Mock<IUserProvider> userProvider = new();
         userProvider
-            .Setup(_ => _.ProcessAsync(
-                It.Is<GetUserByClaimsPrincipalRequest>(req => req.ClaimsPrincipal == userPrincipal),
+            .Setup(_ => _.GetUserBy(
+                It.Is<ClaimsPrincipal>(value => value == userPrincipal),
                 It.IsAny<CancellationToken>()))
-            .Returns<GetUserByClaimsPrincipalRequest, CancellationToken>((_, _) =>
-                Task.FromResult(user))
-            .Verifiable();
-#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+            .Returns<ClaimsPrincipal, CancellationToken>((_, _) =>
+                Task.FromResult<User?>(user))
+            .Verifiable("There was no attempt to retrieve a user by the token.");
 
         UserConstitutor sut = new(
+            Mock.Of<IProcessor<CreateUserByClaimsPrincipalRequest, User>>(),
             tokenValidator.Object, 
-            userProvider.Object,
-            Mock.Of<IProcessor<CreateUserByClaimsPrincipalRequest, User>>());
+            userProvider.Object);
         User result = await sut.Handle(new GetOrCreateUserByBearerTokenRequest(token));
 
         result.Should().BeSameAs(user);
@@ -64,23 +59,23 @@ public class UserConstitutorTests
         ClaimsPrincipal userPrincipal = new(userIdentity);
         User user = new("username");
 
-        Mock<IProcessor<DecodeJsonWebBearerTokenRequest, ClaimsPrincipal>> tokenValidator = new();
+        Mock<ITokenValidator> tokenValidator = new();
         tokenValidator
-            .Setup(_ => _.ProcessAsync(
-                It.Is<DecodeJsonWebBearerTokenRequest>(req => req.Token == token),
+            .Setup(_ => _.ValidateAsync(
+                It.Is<string>(value => value == token),
                 It.IsAny<CancellationToken>()))
-            .Returns<DecodeJsonWebBearerTokenRequest, CancellationToken>((_, _) =>
+            .Returns<string, CancellationToken>((_, _) =>
                 Task.FromResult(userPrincipal))
-            .Verifiable();
+            .Verifiable("There was not attempt to verify the token.");
 
-        Mock<IProcessor<GetUserByClaimsPrincipalRequest, User?>> userProvider = new();
+        Mock<IUserProvider> userProvider = new();
         userProvider
-            .Setup(_ => _.ProcessAsync(
-                It.Is<GetUserByClaimsPrincipalRequest>(req => req.ClaimsPrincipal == userPrincipal),
+            .Setup(_ => _.GetUserBy(
+                It.Is<ClaimsPrincipal>(value => value == userPrincipal),
                 It.IsAny<CancellationToken>()))
-            .Returns<GetUserByClaimsPrincipalRequest, CancellationToken>((_, _) =>
+            .Returns<ClaimsPrincipal, CancellationToken>((_, _) =>
                 Task.FromResult<User?>(null))
-            .Verifiable();
+            .Verifiable("There was no attempt to retrieve a user by the token.");
 
         Mock<IProcessor<CreateUserByClaimsPrincipalRequest, User>> userCreator = new();
         userCreator
@@ -89,12 +84,12 @@ public class UserConstitutorTests
                 It.IsAny<CancellationToken>()))
             .Returns<CreateUserByClaimsPrincipalRequest, CancellationToken>((_, _) =>
                 Task.FromResult(user))
-            .Verifiable();
+            .Verifiable("There was no attempt to create a user.");
 
         UserConstitutor sut = new(
+            userCreator.Object,
             tokenValidator.Object,
-            userProvider.Object,
-            userCreator.Object);
+            userProvider.Object);
         User result = await sut.Handle(new GetOrCreateUserByBearerTokenRequest(token));
 
         result.Should().BeSameAs(user);

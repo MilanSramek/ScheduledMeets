@@ -1,15 +1,13 @@
-﻿using MediatR;
-
-using ScheduledMeets.Business.Interfaces;
+﻿using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
 using ScheduledMeets.Internals.Extensions;
 
 using System.Security.Claims;
 using System.Security.Principal;
 
-namespace ScheduledMeets.Business.UseCases.GetUserByClaimsPrincipal
+namespace ScheduledMeets.Business.UseCases.GetOrCreateUserByBearerToken
 {
-    class UserProvider : IRequestHandler<GetUserByClaimsPrincipalRequest, User?>
+    internal class UserProvider : IUserProvider
     {
         private readonly IReadRepository<User> _users;
 
@@ -19,11 +17,10 @@ namespace ScheduledMeets.Business.UseCases.GetUserByClaimsPrincipal
             _users = users;
         }
 
-        public async Task<User?> Handle(GetUserByClaimsPrincipalRequest request,
+        public async Task<User?> GetUserBy(ClaimsPrincipal claimsPrincipal,
             CancellationToken cancellationToken = default)
         {
-            ArgumentNullException.ThrowIfNull(request);
-            ClaimsPrincipal claimsPrincipal = request.ClaimsPrincipal;
+            ArgumentNullException.ThrowIfNull(claimsPrincipal);
 
             if (!claimsPrincipal.Identities.Any())
                 throw new ApplicationException($"Claims principal carries no user identity.");
@@ -42,7 +39,7 @@ namespace ScheduledMeets.Business.UseCases.GetUserByClaimsPrincipal
                 anyIdentifiableIdentity = true;
             }
 
-            return anyIdentifiableIdentity 
+            return anyIdentifiableIdentity
                 ? null
                 : throw new ApplicationException($"Claims principal carries no user identifiable identity.");
         }

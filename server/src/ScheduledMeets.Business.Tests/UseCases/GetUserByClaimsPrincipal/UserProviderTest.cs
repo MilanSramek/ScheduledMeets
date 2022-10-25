@@ -5,7 +5,7 @@ using Moq;
 using NUnit.Framework;
 
 using ScheduledMeets.Business.Interfaces;
-using ScheduledMeets.Business.UseCases.GetUserByClaimsPrincipal;
+using ScheduledMeets.Business.UseCases.GetOrCreateUserByBearerToken;
 using ScheduledMeets.Core;
 using ScheduledMeets.TestTools.Extensions;
 
@@ -30,7 +30,7 @@ public class UserProviderTest
         claimsPrincipal.AddIdentity(claimsIdentity);
 
         UserProvider sut = new(users.Object);
-        User? user = await sut.Handle(new(claimsPrincipal));
+        User? user = await sut.GetUserBy(claimsPrincipal);
 
         user.Should().NotBeNull();
         user?.Username.Should().Be(username);
@@ -54,7 +54,7 @@ public class UserProviderTest
         claimsPrincipal.AddIdentity(secondaryIdentity);
 
         UserProvider sut = new(users.Object);
-        User? result = await sut.Handle(new(claimsPrincipal));
+        User? result = await sut.GetUserBy(claimsPrincipal);
 
         result.Should().NotBeNull();
         result.Should().BeSameAs(user);
