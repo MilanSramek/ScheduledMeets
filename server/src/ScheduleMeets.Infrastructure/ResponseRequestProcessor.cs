@@ -4,7 +4,7 @@ using ScheduledMeets.Business.Interfaces;
 
 namespace ScheduledMeets.Infrastructure;
 
-class ResponseRequestProcessor<TRequest, TResponse> : IProcessor<TRequest, TResponse>
+internal class ResponseRequestProcessor<TRequest, TResponse> : IProcessor<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
     private readonly ISender _sender;

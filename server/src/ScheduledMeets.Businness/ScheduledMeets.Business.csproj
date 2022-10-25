@@ -3,7 +3,6 @@
   <Import Project="..\..\..\ScheduledMeets.props" />
 
   <ItemGroup>
-    <PackageReference Include="Dawn.Guard" />
     <PackageReference Include="IdentityModel" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" />

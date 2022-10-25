@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
@@ -16,7 +14,7 @@ class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, 
 
     public ReadRepository(AccessContext context)
     {
-        Guard.Argument(context, nameof(context)).NotNull();
+        ArgumentNullException.ThrowIfNull(context);
         _base = context.Set<TEntity>();
     }
 

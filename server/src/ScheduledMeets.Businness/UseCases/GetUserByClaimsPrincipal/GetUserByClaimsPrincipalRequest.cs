@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using MediatR;
+﻿using MediatR;
 
 using ScheduledMeets.Core;
 
@@ -12,7 +10,8 @@ public record GetUserByClaimsPrincipalRequest : IRequest<User?>
 {
     public GetUserByClaimsPrincipalRequest(ClaimsPrincipal claimsPrincipal)
     {
-        ClaimsPrincipal = Guard.Argument(claimsPrincipal, nameof(claimsPrincipal)).NotNull().Value;
+        ArgumentNullException.ThrowIfNull(claimsPrincipal);
+        ClaimsPrincipal = claimsPrincipal;
     }
 
     public ClaimsPrincipal ClaimsPrincipal { get; }
