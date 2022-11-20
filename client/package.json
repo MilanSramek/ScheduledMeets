@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "locales": "i18next --config i18next-parser.config.json",
-    "codegen": "graphql-codegen --config codegen.config.ts",
+    "codegen:remote": "graphql-codegen --config codegen.remote.config.ts",
+    "codegen:local": "graphql-codegen --config codegen.local.config.ts",
     "build": "webpack build",
-    "codegen:watch": "graphql-codegen --config codegen.config.ts --watch",
-    "start": "concurrently \"graphql-codegen --config codegen.config.ts --watch\" \"webpack serve\"",
-    "start:open": "concurrently \"graphql-codegen --config codegen.config.ts --watch\" \"webpack serve --open-app-name firefox\"",
+    "codegen:watch": "graphql-codegen --config codegen.local.config.ts --watch",
+    "start": "concurrently \"graphql-codegen --config codegen.local.config.ts --watch\" \"webpack serve\"",
+    "start:open": "concurrently \"graphql-codegen --config codegen.local.config.ts --watch\" \"webpack serve --open-app-name firefox\"",
     "start:server": "cd ../server/src/ScheduledMeets && dotnet run"
   },
   "devDependencies": {

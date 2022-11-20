@@ -1,17 +1,14 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 import { config as envConfig } from 'dotenv';
+import { configBase } from './codege.base.config';
 
 envConfig({ path: '.env.development' });
 
 const config: CodegenConfig = {
-  overwrite: true,
+  ...configBase,
   schema: `${process.env.SERVER_UNSECURED_URL}/graphql?sdl`,
-  documents: 'src/**/*.tsx',
   generates: {
-    'src/gql/': {
-      preset: 'client',
-      plugins: [],
-    },
+    ...configBase.generates,
     'src/gql/schema.json': {
       plugins: ['introspection'],
     },
