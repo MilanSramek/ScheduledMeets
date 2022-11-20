@@ -3,12 +3,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 
+import './locales/cs/translation.json';
+import './locales/en/translation.json';
+
 i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .use(initReactI18next)
   .init({
-    debug: true,
     fallbackLng: 'en',
     keySeparator: false,
     interpolation: {

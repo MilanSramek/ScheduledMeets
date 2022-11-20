@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'gql';
+interface User {
+  email?: string | null;
+  id: number;
+  nickname?: string | null;
+  username: string;
+}
 
 export const userSlice = createSlice({
   name: 'user',

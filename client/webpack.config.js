@@ -21,6 +21,14 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.json?$/,
+        type: 'asset/resource',
+        exclude: /node_modules/,
+        generator: {
+          filename: (module) => path.relative('src', module.filename),
+        },
+      },
     ],
   },
   resolve: {
