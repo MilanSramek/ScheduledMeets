@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'src/gql/graphql';
+import { User } from 'gql';
 
 export const userSlice = createSlice({
   name: 'user',

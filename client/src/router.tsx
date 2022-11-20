@@ -5,25 +5,30 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import { SignInPage, UserPage } from 'pages';
+import { AppFrame, SignInPage, UserPage } from 'parts';
 import { AuthBarrier } from 'components';
-import { path } from './path';
+import { Suspense } from 'react';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path={path.signIn} element={<SignInPage nextPath={'/user'} />} />
+      <Route path={'/sign-in'} element={<SignInPage nextPath={'/user'} />} />
       <Route
         path={'/'}
         element={
-          <AuthBarrier signInPath={path.signIn}>
-            <Outlet />
-          </AuthBarrier>
+          <Suspense fallback={'blaaaaaaaaaaaaaaaaaaaaaa'}>
+            <AuthBarrier signInPath={'/sign-in'}>
+              <AppFrame>
+                <Outlet />
+              </AppFrame>
+            </AuthBarrier>
+          </Suspense>
         }
       >
         <Route path={'user'} element={<UserPage />} />
-        <Route path={'*'} element={'NotFound'} />
+        <Route path={'/'} element={''} />
       </Route>
+      <Route path={'*'} element={'Page not found.'} />
     </>
   )
 );

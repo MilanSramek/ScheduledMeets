@@ -33,7 +33,7 @@ module.exports = {
     alias: {
       src: path.resolve(__dirname, 'src'),
       components: path.resolve(__dirname, 'src/components/'),
-      pages: path.resolve(__dirname, 'src/pages/'),
+      parts: path.resolve(__dirname, 'src/parts/'),
       store: path.resolve(__dirname, 'src/store/'),
       config: path.resolve(__dirname, 'src/config/'),
       gql: path.resolve(__dirname, 'src/gql/'),

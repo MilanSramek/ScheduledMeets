@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useUser } from 'store';
+import { useUser } from 'src/store';
 
 export const UserPage: FC = () => {
   const user = useUser();

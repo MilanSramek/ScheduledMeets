@@ -7,13 +7,19 @@ import { ApolloProvider } from '@apollo/client';
 import { store, persistor } from 'store';
 import { client } from './apolloClient';
 import { router } from './router';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from './theme';
+
+import './i18next';
 
 export const App: FC = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ApolloProvider client={client}>
-          <RouterProvider router={router} />
+          <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+          </ThemeProvider>
         </ApolloProvider>
       </PersistGate>
     </Provider>

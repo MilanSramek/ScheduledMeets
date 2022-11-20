@@ -2,6 +2,8 @@ import { FC, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { graphql } from 'gql';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Avatar, Box, Container, Typography } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import { env } from 'config';
 import { SignInWithGoogleButton } from 'components';
@@ -39,9 +41,28 @@ export const SignInPage: FC<{ nextPath: string }> = ({ nextPath }) => {
   );
 
   return (
-    <SignInWithGoogleButton
-      clientId={env.GOOGLE_CLIENT_ID}
-      callback={makeSignIn}
-    />
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Box sx={{ marginTop: 2 }}>
+          <SignInWithGoogleButton
+            clientId={env.GOOGLE_CLIENT_ID}
+            callback={makeSignIn}
+          />
+        </Box>
+      </Box>
+    </Container>
   );
 };
