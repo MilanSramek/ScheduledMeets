@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ScheduledMeets.Internals\ScheduledMeets.Internals.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\GetUserByClaimsPrincipal\" />
-  </ItemGroup>
-
 </Project>
