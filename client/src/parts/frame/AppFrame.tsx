@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -12,7 +12,7 @@ import {
 
 import { MainMenu } from './MainMenu';
 
-export const AppFrame: FC = ({ children }) => {
+export const AppFrame: FC<{ children: ReactNode }> = ({ children }) => {
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   return (

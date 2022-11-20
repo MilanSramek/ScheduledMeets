@@ -2,5 +2,5 @@
   "locales": ["en", "cs"],
   "defaultNamespace": "translation",
   "input": "src/**/*.{tsx,hbx}",
-  "output": "dist/locales/$LOCALE/$NAMESPACE.json"
+  "output": "src/locales/$LOCALE/$NAMESPACE.json"
 }

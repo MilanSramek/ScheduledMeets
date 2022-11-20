@@ -8,7 +8,7 @@ const config: CodegenConfig = {
   schema: `${process.env.SERVER_UNSECURED_URL}/graphql?sdl`,
   documents: 'src/**/*.tsx',
   generates: {
-    'src/gql': {
+    'src/gql/': {
       preset: 'client',
       plugins: [],
     },
