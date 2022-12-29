@@ -11,6 +11,7 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from './theme';
 
 import './i18next';
+import { CssBaseline } from '@mui/material';
 
 export const App: FC = () => {
   return (
@@ -18,6 +19,7 @@ export const App: FC = () => {
       <PersistGate loading={null} persistor={persistor}>
         <ApolloProvider client={client}>
           <ThemeProvider theme={theme}>
+            <CssBaseline />
             <RouterProvider router={router} />
           </ThemeProvider>
         </ApolloProvider>

@@ -1,54 +1,36 @@
-import { FC, ReactNode, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import MenuIcon from '@mui/icons-material/Menu';
-import {
-  AppBar,
-  Box,
-  Drawer,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { FC, ReactNode } from 'react';
+import { Box, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
 
-import { MainMenu } from './MainMenu';
+export const AppFrame: FC<{
+  menu: ReactNode;
+  content: ReactNode;
+}> = ({ menu, content }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-export const AppFrame: FC<{ children: ReactNode }> = ({ children }) => {
-  const { t } = useTranslation();
-  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <Box sx={{ display: 'flex' }}>
-      <Drawer
-        open={menuOpen}
-        anchor="bottom"
-        onClose={() => setMenuOpen(false)}
+      {menu}
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
       >
-        <MainMenu />
-      </Drawer>
-      <AppBar position="fixed" color="primary">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{
-              marginRight: '36px',
-            }}
-            onClick={() => setMenuOpen(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            {t('Dashboard')}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      {children}
+        <Container sx={{ mt: 4, mb: 4 }}>
+          <Grid container sx={{ pl: theme.spacing(matches ? 0 : 7) }}>
+            <Grid item xs={12}>
+              {content}
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   );
 };

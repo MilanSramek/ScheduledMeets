@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, Suspense, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { graphql } from 'gql';
 import { useNavigate, useLocation } from 'react-router-dom';
