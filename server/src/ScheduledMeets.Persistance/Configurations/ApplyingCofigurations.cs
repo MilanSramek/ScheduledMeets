@@ -8,6 +8,7 @@ static class ApplyingCofigurations
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
         return modelBuilder
-            .ApplyConfiguration(new UserConfiguration());
+            .ApplyConfiguration(new UserConfiguration())
+            .ApplyConfiguration(new UserViewConfiguration());
     }
 }

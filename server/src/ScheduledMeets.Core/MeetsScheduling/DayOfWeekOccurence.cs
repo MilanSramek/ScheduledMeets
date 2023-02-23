@@ -1,6 +1,6 @@
 ﻿using ScheduledMeets.Internals.Collections;
 
-namespace ScheduledMeets.Core.TimeScheduling;
+namespace ScheduledMeets.Core.MeetsScheduling;
 
 public class DayOfWeekOccurence : ISequence<DateTime, DateTime>
 {
@@ -18,7 +18,7 @@ public class DayOfWeekOccurence : ISequence<DateTime, DateTime>
             dayDifference = 7 + dayDifference;
 
         DateTime item = date.AddDays(dayDifference).ToDateTime(TimeOnly.FromDateTime(cursor));
-       
+
         while (true)
         {
             yield return item;

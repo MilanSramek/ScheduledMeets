@@ -1,33 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using ScheduledMeets.Business.Interfaces;
-using ScheduledMeets.Core;
+using ScheduledMeets.View;
 
 using System.Collections;
 using System.Linq.Expressions;
 
 namespace ScheduledMeets.Persistance;
 
-internal class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, IEntity
+internal class ViewReader<TView> : IReader<TView> where TView : class
 {
-    private readonly IQueryable<TEntity> _base;
+    private readonly IQueryable<TView> _base;
 
-    public ReadRepository(AccessContext context)
+    public ViewReader(AccessContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
-        _base = context.Set<TEntity>();
+        _base = context.Set<TView>().AsNoTrackingWithIdentityResolution();
     }
 
     public Type ElementType => _base.ElementType;
     public Expression Expression => _base.Expression;
     public IQueryProvider Provider => _base.Provider;
 
-    public IAsyncEnumerator<TEntity> GetAsyncEnumerator(
+    public IAsyncEnumerator<TView> GetAsyncEnumerator(
         CancellationToken cancellationToken = default)
     {
         return _base.AsAsyncEnumerable().GetAsyncEnumerator(cancellationToken);
     }
 
-    public IEnumerator<TEntity> GetEnumerator() => _base.GetEnumerator();
+    public IEnumerator<TView> GetEnumerator() => _base.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => (_base as IEnumerable).GetEnumerator();
 }

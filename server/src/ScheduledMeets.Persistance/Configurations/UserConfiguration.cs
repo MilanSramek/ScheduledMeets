@@ -5,7 +5,7 @@ using ScheduledMeets.Core;
 
 namespace ScheduledMeets.Persistance.Configurations;
 
-class UserConfiguration : IEntityTypeConfiguration<User>
+internal class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {

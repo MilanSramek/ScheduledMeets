@@ -2,8 +2,6 @@
 
 using Moq;
 
-using NUnit.Framework;
-
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Business.UseCases.GetOrCreateUserByBearerToken;
 using ScheduledMeets.Core;

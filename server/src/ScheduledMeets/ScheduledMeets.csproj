@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ScheduledMeets.Api\ScheduledMeets.Api.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Connectivity\ScheduledMeets.Connectivity.csproj" />
-    <ProjectReference Include="..\ScheduledMeets.GraphQL\ScheduledMeets.GraphQL.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Persistance\ScheduledMeets.Persistance.csproj" />
     <ProjectReference Include="..\ScheduleMeets.Infrastructure\ScheduledMeets.Infrastructure.csproj" />
   </ItemGroup>

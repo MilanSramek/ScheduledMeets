@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Hosting;
 
-namespace ScheduledMeets.GraphQL;
+namespace ScheduledMeets.Api;
 
 public static class GraphQLPipeline
 {
@@ -21,7 +21,7 @@ public static class GraphQLPipeline
 
         graphqlBuilder.WithOptions(new()
         {
-           EnableSchemaRequests = environment.IsDevelopment()
+            EnableSchemaRequests = environment.IsDevelopment()
         });
 
         return builder;

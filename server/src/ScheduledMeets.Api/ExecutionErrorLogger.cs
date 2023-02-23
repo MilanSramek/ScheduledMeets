@@ -1,5 +1,4 @@
-﻿using HotChocolate;
-using HotChocolate.Execution;
+﻿using HotChocolate.Execution;
 using HotChocolate.Execution.Instrumentation;
 using HotChocolate.Execution.Processing;
 using HotChocolate.Resolvers;
@@ -8,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Text;
 
-namespace ScheduledMeets.Internals.GraphQL
+namespace ScheduledMeets.Api
 {
     public class ExecutionErrorLogger : ExecutionDiagnosticEventListener
     {
@@ -40,7 +39,7 @@ namespace ScheduledMeets.Internals.GraphQL
                         "[{0}]\n" +
                         "\tMessage: {1}\n" +
                         "\tPath: {2}\n",
-                        index+1,
+                        index + 1,
                         error.Message,
                         error.Path);
             }
@@ -66,7 +65,7 @@ namespace ScheduledMeets.Internals.GraphQL
             _logger.LogError("Resolver error\n" +
                 "Message: {Message}\n" +
                 "Path: {Path}\n" +
-                "Exception: {Exception}\n", 
+                "Exception: {Exception}\n",
                 error.Message,
                 error.Path,
                 error.Exception);
@@ -91,7 +90,7 @@ namespace ScheduledMeets.Internals.GraphQL
             _logger.LogError(exception, "Subscription event error");
         }
 
-        public override void SubscriptionTransportError(ISubscription subscription, 
+        public override void SubscriptionTransportError(ISubscription subscription,
             Exception exception)
         {
             _logger.LogError(exception, "Subscription transport error");

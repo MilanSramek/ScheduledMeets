@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Core\ScheduledMeets.Core.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.View\ScheduledMeets.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>

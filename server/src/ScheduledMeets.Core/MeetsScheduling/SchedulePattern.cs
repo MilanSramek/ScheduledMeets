@@ -1,6 +1,6 @@
 ﻿using ScheduledMeets.Internals;
 
-namespace ScheduledMeets.Core.TimeScheduling;
+namespace ScheduledMeets.Core.MeetsScheduling;
 
 public class SchedulePattern : IEntity
 {

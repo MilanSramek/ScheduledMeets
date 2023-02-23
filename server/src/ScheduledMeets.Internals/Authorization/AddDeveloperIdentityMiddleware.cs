@@ -2,23 +2,22 @@
 
 using System.Security.Claims;
 
-namespace ScheduledMeets.Internals.Authorization
+namespace ScheduledMeets.Internals.Authorization;
+
+internal class AddDeveloperIdentityMiddleware
 {
-    class AddDeveloperIdentityMiddleware
+    private readonly RequestDelegate _next;
+
+    public AddDeveloperIdentityMiddleware(RequestDelegate next) =>
+        _next = next ?? throw new ArgumentNullException(nameof(next));
+
+    public async Task InvokeAsync(HttpContext context)
     {
-        private readonly RequestDelegate _next;
+        ClaimsIdentity userIdentity = new(ClaimTypes.Name);
+        userIdentity.AddClaim(new(ClaimTypes.Name, "developer"));
 
-        public AddDeveloperIdentityMiddleware(RequestDelegate next) =>
-            _next = next ?? throw new ArgumentNullException(nameof(next));
+        context.User = new(userIdentity);
 
-        public async Task InvokeAsync(HttpContext context)
-        {
-            ClaimsIdentity userIdentity = new(ClaimTypes.Sid);
-            userIdentity.AddClaim(new(ClaimTypes.Sid, "developer"));
-
-            context.User = new(userIdentity);
-
-            await _next(context);
-        }
+        await _next(context);
     }
 }

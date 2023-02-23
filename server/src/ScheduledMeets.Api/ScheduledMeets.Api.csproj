@@ -5,8 +5,13 @@
     <PackageReference Include="HotChocolate.Abstractions" />
     <PackageReference Include="HotChocolate.AspNetCore" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" />
+    <PackageReference Include="HotChocolate.Data" />
     <PackageReference Include="HotChocolate.Execution" />
     <PackageReference Include="HotChocolate.Types" />
+    <PackageReference Include="HotChocolate.Types.Analyzers">
+      <IncludeAssets>runtime; build; native; contentfile; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
@@ -15,5 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ScheduledMeets.Businness\ScheduledMeets.Business.csproj" />
     <ProjectReference Include="..\ScheduledMeets.Core\ScheduledMeets.Core.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.View\ScheduledMeets.View.csproj" />
   </ItemGroup>
 </Project>

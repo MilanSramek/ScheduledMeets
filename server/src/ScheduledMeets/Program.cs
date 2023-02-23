@@ -5,12 +5,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using ScheduledMeets;
+using ScheduledMeets.Api;
 using ScheduledMeets.Business;
 using ScheduledMeets.Connectivity;
-using ScheduledMeets.GraphQL;
 using ScheduledMeets.Infrastructure;
 using ScheduledMeets.Internals.Authorization;
 using ScheduledMeets.Persistance;
+using ScheduledMeets.View;
 
 using Serilog;
 using Serilog.Core;
@@ -40,7 +41,8 @@ try
         .AddPersistance()
         .AddConnectivity(builder.Configuration)
         .AddCommonServices()
-        .AddGraphQL();
+        .AddView()
+        .AddApi();
 
     using WebApplication application = builder.Build();
 
@@ -51,6 +53,7 @@ try
         application.UseDeveloperIdentity();
 
     application
+        .UseRouting()
         .UseAuthentication()
         .UseAuthorization();
     application

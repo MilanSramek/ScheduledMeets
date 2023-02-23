@@ -1,6 +1,6 @@
 ﻿using ScheduledMeets.Internals.Collections;
 
-namespace ScheduledMeets.Core.TimeScheduling;
+namespace ScheduledMeets.Core.MeetsScheduling;
 
 public class TimeOccurence : IEntity, ISequence<DateTime, DateTime>
 {

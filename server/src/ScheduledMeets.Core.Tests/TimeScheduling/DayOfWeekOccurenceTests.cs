@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Extensions;
 
-using ScheduledMeets.Core.TimeScheduling;
+using ScheduledMeets.Core.MeetsScheduling;
 using ScheduledMeets.Internals.Collections;
 using ScheduledMeets.TestTools.Extensions;
 
