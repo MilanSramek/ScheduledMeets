@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using Microsoft.EntityFrameworkCore.Query;
+﻿using Microsoft.EntityFrameworkCore.Query;
 
 using System.Linq.Expressions;
 using System.Reflection;
@@ -13,7 +11,8 @@ class QueryProviderAsyncWrapper : IAsyncQueryProvider
 
     public QueryProviderAsyncWrapper(IQueryProvider queryProvider)
     {
-        _queryProvider = Guard.Argument(queryProvider, nameof(queryProvider)).NotNull().Value;
+        _queryProvider = queryProvider
+            ?? throw new ArgumentNullException(nameof(queryProvider));
     }
 
     public IQueryable CreateQuery(Expression expression)

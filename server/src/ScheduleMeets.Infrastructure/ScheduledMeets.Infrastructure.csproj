@@ -3,7 +3,6 @@
   <Import Project="..\..\..\ScheduledMeets.props" />
 
   <ItemGroup>
-    <PackageReference Include="Dawn.Guard" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
   </ItemGroup>

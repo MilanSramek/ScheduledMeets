@@ -1,4 +1,4 @@
-﻿using HotChocolate.AspNetCore.Authorization;
+﻿using HotChocolate.Authorization;
 
 using ScheduledMeets.Internals.Extensions;
 using ScheduledMeets.View;

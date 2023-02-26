@@ -1,6 +1,4 @@
-﻿using Dawn;
-
-using System.Collections;
+﻿using System.Collections;
 using System.Linq.Expressions;
 
 namespace ScheduledMeets.TestTools.AsyncQueryables;
@@ -11,7 +9,8 @@ class QueryableAsyncWrapper : IQueryable
 
     public QueryableAsyncWrapper(IQueryable queryable)
     {
-        _queryable = Guard.Argument(queryable, nameof(queryable)).NotNull().Value;
+        _queryable = queryable
+            ?? throw new ArgumentNullException(nameof(queryable));
     }
 
     public Type ElementType => _queryable.ElementType;
