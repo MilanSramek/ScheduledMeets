@@ -21,6 +21,6 @@ internal class UserType : ObjectType<UserView>
         descriptor.Field(_ => _.LastName);
         descriptor.Field(_ => _.Nickname);
         descriptor.Field(_ => _.Email);
-        descriptor.Field(_ => _.Attendees);
+        //descriptor.Field(_ => _.Attendees);
     }
 }

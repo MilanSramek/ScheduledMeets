@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 using ScheduledMeets.Business.Interfaces;
+using ScheduledMeets.Persistance.Model;
 using ScheduledMeets.View;
 
 namespace ScheduledMeets.Persistance;
@@ -22,6 +23,7 @@ public static class PersistanceRegistrations
             .ConfigurePersistance()
             .AddAccessContext(npgsqlOptionsAction)
             .AddAccessProvider()
+            .AddModel()
             .AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
@@ -47,7 +49,7 @@ public static class PersistanceRegistrations
     private static IServiceCollection AddAccessProvider(this IServiceCollection services) => services
         .AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>))
         .AddScoped(typeof(IRepository<>), typeof(Repository<>))
-        .AddScoped(typeof(IReader<>), typeof(ViewReader<>));
+        .AddScoped(typeof(IReader<UserView>), typeof(ViewReader<UserView, Model.User>));
 
     private static IServiceCollection ConfigurePersistance(this IServiceCollection services)
     {

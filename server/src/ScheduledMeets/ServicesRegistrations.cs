@@ -37,9 +37,5 @@ static class ServicesRegistrations
     }
 
     private static IServiceCollection AddMediator(this IServiceCollection services) => services
-        .AddScoped<ISender, Mediator>()
-        .AddScoped<ServiceFactory>(context =>
-        {
-            return type => context.GetRequiredService(type);
-        });
+        .AddScoped<ISender, Mediator>();
 }
