@@ -8,8 +8,6 @@ internal class UserProfile : Profile
 {
     public UserProfile()
     {
-        CreateMap<UserView, User>()
-            .ForMember(dst => dst.Attendees, opt => opt.Ignore())
-            .ReverseMap();
+        CreateMap<User, UserView>(MemberList.Destination);
     }
 }
