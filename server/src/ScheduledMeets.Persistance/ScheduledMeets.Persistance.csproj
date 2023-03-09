@@ -4,6 +4,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
     <PackageReference Include="DelegateDecompiler.EntityFrameworkCore5" />
     <PackageReference Include="EFCore.NamingConventions" />

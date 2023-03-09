@@ -9,7 +9,7 @@ public class MappingValidations
     [Test]
     public void AssertMappingsAreValid()
     {
-        MapperConfiguration configuration = new(MappingConfiguration.AddProfiles);
+        MapperConfiguration configuration = new(setting => setting.AddProfiles());
         configuration.AssertConfigurationIsValid();
     }
 }
