@@ -12,7 +12,7 @@ internal class AttendeeType : ObjectType<AttendeeView>
         descriptor.BindFieldsExplicitly();
 
         descriptor.Field(_ => _.Id);
-        descriptor.Field(_ => _.Meets);
+        //descriptor.Field(_ => _.Meets);
         descriptor.Field(_ => _.IsOwner);
     }
 }

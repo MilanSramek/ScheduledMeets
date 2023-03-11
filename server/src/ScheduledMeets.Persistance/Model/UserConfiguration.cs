@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using ScheduledMeets.Core;
-
-namespace ScheduledMeets.Persistance.Configurations;
+namespace ScheduledMeets.Persistance.Model;
 
 internal class UserConfiguration : IEntityTypeConfiguration<User>
 {
@@ -17,13 +15,5 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder
             .HasIndex(_ => _.Username)
             .IsUnique();
-
-        builder.OwnsOne(_ => _.Name);
-        builder
-            .Navigation(_ => _.Name)
-            .IsRequired();
-
-        builder.Property(_ => _.Nickname);
-        builder.Property(_ => _.Email);
     }
 }
