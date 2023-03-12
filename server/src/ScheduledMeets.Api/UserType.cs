@@ -1,7 +1,4 @@
-﻿using HotChocolate.AspNetCore.Authorization;
-
-using ScheduledMeets.Api.Authorization;
-using ScheduledMeets.View;
+﻿using ScheduledMeets.View;
 
 namespace ScheduledMeets.Api;
 

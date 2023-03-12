@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.Extensions.ExpressionMapping;
+
+using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
@@ -8,14 +11,19 @@ using System.Linq.Expressions;
 
 namespace ScheduledMeets.Persistance;
 
-internal class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, IEntity
+internal class ReadRepository<TEntity, TModel> : IReadRepository<TEntity> 
+    where TEntity : IEntity
+    where TModel : class
 {
     private readonly IQueryable<TEntity> _base;
 
-    public ReadRepository(AccessContext context)
+    public ReadRepository(AccessContext context, IMapper mapper)
     {
         ArgumentNullException.ThrowIfNull(context);
-        _base = context.Set<TEntity>();
+        _base = context.Set<TModel>()
+            .AsNoTrackingWithIdentityResolution()
+            .UseAsDataSource(mapper)
+            .For<TEntity>();
     }
 
     public Type ElementType => _base.ElementType;

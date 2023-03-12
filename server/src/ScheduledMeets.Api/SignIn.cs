@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+
 using ScheduledMeets.Api.Authentication;
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Business.UseCases.GetOrCreateUserByBearerToken;
+using ScheduledMeets.Core;
 using ScheduledMeets.View;
 
 using System.Security.Claims;
@@ -14,20 +16,23 @@ internal static class SignIn
 {
     public static async Task<UserView> SignInAsync(
         string idToken,
-        [GlobalState]HttpContext httpContext,
-        [Service]IProcessor<GetOrCreateUserByBearerTokenRequest, Core.User> userProcessor,
+        [Service]IHttpContextAccessor httpContextAccessor,
+        [Service]IProcessor<GetOrCreateUserByBearerTokenRequest, User> userProcessor,
         [Service]IWithIdReader<UserView> userReader,
         CancellationToken cancellationToken)
     {
-        Core.User user = await userProcessor.ProcessAsync(
-            new GetOrCreateUserByBearerTokenRequest(idToken),
-            cancellationToken);
+        ArgumentNullException.ThrowIfNull(httpContextAccessor);
+        ArgumentNullException.ThrowIfNull(httpContextAccessor.HttpContext);
+        ArgumentNullException.ThrowIfNull(userProcessor);
+        ArgumentNullException.ThrowIfNull(userReader);
+
+        User user = await userProcessor.ProcessAsync(new(idToken), cancellationToken);
 
         ClaimsIdentity userIdentity = new(AuthenticationType.Federation);
         userIdentity.AddClaim(new(ClaimTypes.Name, user.Username));
 
         ClaimsPrincipal userPrincipal = new(userIdentity);
-        await httpContext.SignInAsync(userPrincipal);
+        await httpContextAccessor.HttpContext.SignInAsync(userPrincipal);
 
         return await userReader.ReadAsync(user.Id, cancellationToken);
     }

@@ -1,19 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+
+using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
 
 namespace ScheduledMeets.Persistance;
 
-internal class Repository<TEntity> : ReadRepository<TEntity>, IRepository<TEntity>,
-    IReadRepository<TEntity> where TEntity : class, IEntity
+internal class Repository<TEntity, TModel> : ReadRepository<TEntity, TModel>, 
+    IRepository<TEntity>,
+    IReadRepository<TEntity>
+    where TEntity : IEntity
+    where TModel : class
 {
-    private readonly DbSet<TEntity> _set;
+    private readonly DbSet<TModel> _set;
+    private readonly IMapper _mapper;
 
-    public Repository(AccessContext context) : base(context)
+    public Repository(
+        AccessContext context, 
+        IMapper mapper) 
+        : base(context, mapper)
     {
         ArgumentNullException.ThrowIfNull(context);
-        _set = context.Set<TEntity>();
+        _set = context.Set<TModel>();
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     #region Writes
@@ -21,21 +31,23 @@ internal class Repository<TEntity> : ReadRepository<TEntity>, IRepository<TEntit
     public async ValueTask SaveAsync(TEntity entity, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(entity);
+        TModel model = _mapper.Map<TModel>(entity);
 
         if (entity.Id > 0)
         {
-            _set.Update(entity).DetectChanges();
+            _set.Update(model).DetectChanges();
             return;
         }
 
-        await _set.AddAsync(entity, cancellationToken);
+        await _set.AddAsync(model, cancellationToken);
     }
 
     public ValueTask DeleteAsync(TEntity entity, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(entity);
+        TModel model = _mapper.Map<TModel>(entity);
 
-        _set.Remove(entity);
+        _set.Remove(model);
         return ValueTask.CompletedTask;
     }
 

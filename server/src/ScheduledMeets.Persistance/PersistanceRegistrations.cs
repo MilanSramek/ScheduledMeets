@@ -47,9 +47,12 @@ public static class PersistanceRegistrations
     }
 
     private static IServiceCollection AddAccessProvider(this IServiceCollection services) => services
-        .AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>))
-        .AddScoped(typeof(IRepository<>), typeof(Repository<>))
-        .AddScoped(typeof(IReader<UserView>), typeof(ViewReader<UserView, Model.User>));
+        .AddUserProviders();
+
+    private static IServiceCollection AddUserProviders(this IServiceCollection services) => services
+        .AddScoped(typeof(IReadRepository<Core.User>), typeof(ReadRepository<Core.User, User>))
+        .AddScoped(typeof(IRepository<Core.User>), typeof(Repository<Core.User, User>))
+        .AddScoped(typeof(IReader<UserView>), typeof(ViewReader<UserView, User>));
 
     private static IServiceCollection ConfigurePersistance(this IServiceCollection services)
     {
