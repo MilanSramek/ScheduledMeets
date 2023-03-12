@@ -18,45 +18,83 @@ export type Scalars = {
 
 export enum ApplyPolicy {
   AfterResolver = 'AFTER_RESOLVER',
-  BeforeResolver = 'BEFORE_RESOLVER'
+  BeforeResolver = 'BEFORE_RESOLVER',
+  Validation = 'VALIDATION'
 }
 
-export type MutationsType = {
-  __typename?: 'MutationsType';
-  signIn: User;
+export type Attendee = {
+  __typename?: 'Attendee';
+  id: Scalars['Long'];
+  isOwner: Scalars['Boolean'];
+  nickname?: Maybe<Scalars['String']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  signIn: SignInPayload;
 };
 
 
-export type MutationsTypeSignInArgs = {
+export type MutationSignInArgs = {
+  input: SignInInput;
+};
+
+/** The node interface is implemented by entities that have a global unique identifier. */
+export type Node = {
+  id: Scalars['ID'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  currentUser: User;
+  /** Fetches an object given its ID. */
+  node?: Maybe<Node>;
+  /** Lookup nodes by a list of IDs. */
+  nodes: Array<Maybe<Node>>;
+  user: User;
+};
+
+
+export type QueryNodeArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryNodesArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['ID'];
+};
+
+export type SignInInput = {
   idToken: Scalars['String'];
 };
 
-export type PersonName = {
-  __typename?: 'PersonName';
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
+export type SignInPayload = {
+  __typename?: 'SignInPayload';
+  query: Query;
+  user?: Maybe<User>;
 };
 
-export type QueriesType = {
-  __typename?: 'QueriesType';
-  Sentence?: Maybe<Scalars['String']>;
-};
-
-export type User = {
+export type User = Node & {
   __typename?: 'User';
   email?: Maybe<Scalars['String']>;
-  id: Scalars['Long'];
-  name?: Maybe<PersonName>;
+  firstName?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  lastName?: Maybe<Scalars['String']>;
   nickname?: Maybe<Scalars['String']>;
   username: Scalars['String'];
 };
 
 export type SignInMutationVariables = Exact<{
-  idToken: Scalars['String'];
+  input: SignInInput;
 }>;
 
 
-export type SignInMutation = { __typename?: 'MutationsType', signIn: { __typename?: 'User', id: any, username: string } };
+export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'SignInPayload', user?: { __typename?: 'User', id: string, username: string } | null } };
 
 
-export const SignInDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignIn"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"idToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;
+export const SignInDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignIn"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignInInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;

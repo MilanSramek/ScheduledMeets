@@ -1,4 +1,4 @@
-import { FC, Suspense, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { graphql } from 'gql';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -8,12 +8,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { env } from 'config';
 import { SignInWithGoogleButton } from 'components';
 import { setUser, useDispatch } from 'store';
+import { User } from 'src/gql/graphql';
 
 const SIGN_IN = graphql(`
-  mutation SignIn($idToken: String!) {
-    signIn(idToken: $idToken) {
-      id
-      username
+  mutation SignIn($input: SignInInput!) {
+    signIn(input: $input) {
+      user {
+        id
+        username
+      }
     }
   }
 `);
@@ -28,10 +31,10 @@ export const SignInPage: FC<{ nextPath: string }> = ({ nextPath }) => {
 
   const makeSignIn = useCallback(
     async (idToken: string) => {
-      const { data } = await signIn({ variables: { idToken } });
-      if (!data?.signIn) return;
+      const { data } = await signIn({ variables: { input: { idToken } } });
+      if (!data?.signIn.user) return;
 
-      dispatch(setUser(data?.signIn));
+      dispatch(setUser(data?.signIn.user as User));
 
       const from = location.state?.from?.pathname || nextPath;
 
