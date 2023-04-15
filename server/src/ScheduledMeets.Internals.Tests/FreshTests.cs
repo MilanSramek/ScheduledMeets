@@ -1,7 +1,5 @@
 using Moq;
 
-using NUnit.Framework;
-
 using ScheduledMeets.Internals.Extensions;
 using ScheduledMeets.TestTools.Extensions;
 

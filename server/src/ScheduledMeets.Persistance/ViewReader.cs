@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-
-using DelegateDecompiler.EntityFrameworkCore;
+using AutoMapper.Extensions.ExpressionMapping.EF;
 
 using Microsoft.EntityFrameworkCore;
 
+using ScheduledMeets.Persistance.Helpers;
 using ScheduledMeets.View;
 
 using System.Collections;
@@ -14,15 +13,17 @@ namespace ScheduledMeets.Persistance;
 
 internal class ViewReader<TView, TModel> : IReader<TView> where TModel : class
 {
+    private static ConvertRemover<TView> _convertRemover = new();
     private readonly IQueryable<TView> _base;
 
-    public ViewReader(AccessContext context, IConfigurationProvider configuration)
+    public ViewReader(AccessContext context, IMapper mapper)
     {
         ArgumentNullException.ThrowIfNull(context);
 
         _base = context.Set<TModel>().AsNoTrackingWithIdentityResolution()
-            .ProjectTo<TView>(configuration)
-            .DecompileAsync();
+            .UseAsAsyncDataSource(mapper)
+            .BeforeProjection(_convertRemover)
+            .For<TView>();
     }
 
     public Type ElementType => _base.ElementType;

@@ -21,6 +21,7 @@ internal static class SignIn
         [Service]IWithIdReader<UserView> userReader,
         CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(idToken);
         ArgumentNullException.ThrowIfNull(httpContextAccessor);
         ArgumentNullException.ThrowIfNull(httpContextAccessor.HttpContext);
         ArgumentNullException.ThrowIfNull(userProcessor);

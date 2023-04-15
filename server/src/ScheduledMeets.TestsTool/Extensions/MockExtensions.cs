@@ -1,5 +1,7 @@
 ﻿using Moq;
 
+using ScheduledMeets.TestTools.AsyncQueryables;
+
 namespace ScheduledMeets.TestTools.Extensions
 {
     public static class MockExtensions

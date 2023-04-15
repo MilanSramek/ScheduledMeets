@@ -4,9 +4,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
-    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping.EF" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
-    <!--<PackageReference Include="DelegateDecompiler.EntityFrameworkCore5" />-->
     <PackageReference Include="EFCore.NamingConventions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />

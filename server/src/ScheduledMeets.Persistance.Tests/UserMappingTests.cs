@@ -1,8 +1,15 @@
 ﻿using AutoMapper;
+using AutoMapper.Extensions.ExpressionMapping.EF;
+
+using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Persistance.Model;
+using ScheduledMeets.TestTools.AsyncQueryables;
+using ScheduledMeets.TestTools.Extensions;
+using ScheduledMeets.View;
 
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace ScheduledMeets.Persistance.Tests;
 
@@ -62,16 +69,53 @@ public class UserMappingTests
     }
 
     [Test]
-    public void Quer()
+    public void ExpressionMappingTest()
     {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        Expression<Func<Core.User, bool>> pattern = user => user.Name.FirstName == "5";
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        Expression<Func<Core.User, bool>> pattern = user => user.Name!.FirstName == "5";
         Expression<Func<User, bool>> image = user => user.FirstName == "5";
 
         var sut = _mapper.Map<Expression<Func<User, bool>>>(pattern);
 
 
         sut.Should().BeEquivalentTo(image);
+    }
+
+    [Test]
+    public async Task QueryableMappingTest()
+    {
+        IQueryable<User> users = new User[] 
+        { 
+            new()
+            {
+                Id = 1
+            },
+            new()
+            {
+                Id = 2,
+                Username = "TestUsername",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+            },
+        }.AsAsyncQueryable();
+        
+
+        IQueryable<UserView> sut = users.UseAsAsyncDataSource(_mapper).For<UserView>();
+        var ttt = await sut
+          .ToDictionaryAsync(_ => _.Id);
+
+        List<UserView> result = await sut
+            .Where(_ => _.Id == 2)
+            .ToListAsync();
+
+        result.Should().BeEquivalentTo(new[] 
+        {
+            new
+            { 
+                Id = 2,
+                Username = "TestUsername",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+            }
+        });
     }
 }

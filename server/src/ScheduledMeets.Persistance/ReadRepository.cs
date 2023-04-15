@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using AutoMapper.Extensions.ExpressionMapping;
+using AutoMapper.Extensions.ExpressionMapping.EF;
 
 using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
+using ScheduledMeets.Persistance.Helpers;
 
 using System.Collections;
 using System.Linq.Expressions;
@@ -15,14 +16,15 @@ internal class ReadRepository<TEntity, TModel> : IReadRepository<TEntity>
     where TEntity : IEntity
     where TModel : class
 {
+    private static ConvertRemover<TEntity> _convertRemover = new();
     private readonly IQueryable<TEntity> _base;
 
     public ReadRepository(AccessContext context, IMapper mapper)
     {
         ArgumentNullException.ThrowIfNull(context);
-        _base = context.Set<TModel>()
-            .AsNoTrackingWithIdentityResolution()
-            .UseAsDataSource(mapper)
+        _base = context.Set<TModel>().AsNoTrackingWithIdentityResolution()
+            .UseAsAsyncDataSource(mapper)
+            .BeforeProjection(_convertRemover)
             .For<TEntity>();
     }
 

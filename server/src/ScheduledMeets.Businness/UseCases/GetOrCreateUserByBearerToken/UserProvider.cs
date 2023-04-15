@@ -32,7 +32,7 @@ namespace ScheduledMeets.Business.UseCases.GetOrCreateUserByBearerToken
             foreach (IIdentity identity in identities)
             {
                 User? user = await _users
-                    .SingleOrDefaultAsync(user => user.Username == identity.Name, cancellationToken);
+                    .SingleOrDefaultAsync(user => user.Username == identity.Name);
                 if (user is not null)
                     return user;
 

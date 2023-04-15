@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ScheduledMeets.Persistance\ScheduledMeets.Persistance.csproj" />
+    <ProjectReference Include="..\ScheduledMeets.TestsTool\ScheduledMeets.TestTools.csproj" />
   </ItemGroup>
 
 </Project>
