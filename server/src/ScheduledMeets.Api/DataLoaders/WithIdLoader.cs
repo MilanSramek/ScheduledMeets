@@ -3,7 +3,7 @@ using ScheduledMeets.View;
 
 namespace ScheduledMeets.Api.DataLoaders;
 
-internal class WithIdLoader<TWithId> : BatchDataLoader<long, TWithId>, IWithIdReader<TWithId> 
+internal class WithIdLoader<TWithId> : BatchDataLoader<long, TWithId>, IWithIdReader<TWithId>
     where TWithId : IWithId
 {
     private readonly IReader<TWithId> _reader;
@@ -16,8 +16,14 @@ internal class WithIdLoader<TWithId> : BatchDataLoader<long, TWithId>, IWithIdRe
         _reader = reader ?? throw new ArgumentNullException(nameof(reader));
     }
 
-    public async ValueTask<TWithId> ReadAsync(long id, CancellationToken cancellationToken) =>
-        await LoadAsync(id, cancellationToken);
+    public Task<TWithId> ReadAsync(long id, CancellationToken cancellationToken) =>
+        LoadAsync(id, cancellationToken);
+
+    public Task<IReadOnlyList<TWithId>> ReadAsync(IReadOnlyCollection<long> ids,
+        CancellationToken cancellationToken)
+    {
+        return LoadAsync(ids, cancellationToken);
+    }
 
     protected override async Task<IReadOnlyDictionary<long, TWithId>> LoadBatchAsync(
         IReadOnlyList<long> keys,

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
 
-namespace ScheduledMeets.Persistance;
+namespace ScheduledMeets.Persistence;
 
-internal class Repository<TEntity, TModel> : ReadRepository<TEntity, TModel>, 
+internal class Repository<TEntity, TModel> : ReadRepository<TEntity, TModel>,
     IRepository<TEntity>,
     IReadRepository<TEntity>
     where TEntity : IEntity
@@ -17,8 +17,8 @@ internal class Repository<TEntity, TModel> : ReadRepository<TEntity, TModel>,
     private readonly IMapper _mapper;
 
     public Repository(
-        AccessContext context, 
-        IMapper mapper) 
+        AccessContext context,
+        IMapper mapper)
         : base(context, mapper)
     {
         ArgumentNullException.ThrowIfNull(context);

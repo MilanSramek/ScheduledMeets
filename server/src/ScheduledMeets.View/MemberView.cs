@@ -1,6 +1,6 @@
 ﻿namespace ScheduledMeets.View;
 
-public class AttendeeView : IWithId
+public sealed class MemberView : IWithId
 {
     public long Id { get; set; }
     internal string? Nickname { get; set; }

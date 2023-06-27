@@ -102,10 +102,22 @@ internal class TestAsyncQueryable : IQueryable
     IEnumerator IEnumerable.GetEnumerator() => _querable.GetEnumerator();
 }
 
-internal class TestAsyncQueryable<TElement> : TestAsyncQueryable, IQueryable<TElement>
+internal class TestAsyncQueryable<TElement> : 
+    TestAsyncQueryable, 
+    IQueryable<TElement>, 
+    IAsyncEnumerable<TElement>
 {
     public TestAsyncQueryable(IQueryable<TElement> querable) : base(querable)
     {
+    }
+
+    public async IAsyncEnumerator<TElement> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+    {
+        IEnumerator enumerator = _querable.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            yield return await Task.FromResult((TElement)enumerator.Current);
+        }
     }
 
     public IEnumerator<TElement> GetEnumerator()

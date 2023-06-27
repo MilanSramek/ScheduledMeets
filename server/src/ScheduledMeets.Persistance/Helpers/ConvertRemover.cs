@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace ScheduledMeets.Persistance.Helpers;
+namespace ScheduledMeets.Persistence.Helpers;
 
 internal sealed class ConvertRemover<T> : ExpressionVisitor
 {

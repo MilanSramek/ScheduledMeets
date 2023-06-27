@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Internals.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Business", "server\src\ScheduledMeets.Businness\ScheduledMeets.Business.csproj", "{54F41B95-8619-4186-9CC6-9E856CB77AF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Persistance", "server\src\ScheduledMeets.Persistance\ScheduledMeets.Persistance.csproj", "{75B60713-2347-4989-804D-AB3E29A79A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Persistence", "server\src\ScheduledMeets.Persistance\ScheduledMeets.Persistence.csproj", "{75B60713-2347-4989-804D-AB3E29A79A3B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Database", "server\src\ScheduledMeets.Database\ScheduledMeets.Database.csproj", "{5FCD5795-DF39-4A1C-B427-A4FC2B84C9DE}"
 EndProject
@@ -42,7 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.View", "serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Api", "server\src\ScheduledMeets.Api\ScheduledMeets.Api.csproj", "{690F6710-BB58-438E-9D02-338182EC95F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduledMeets.Persistance.Tests", "server\src\ScheduledMeets.Persistance.Tests\ScheduledMeets.Persistance.Tests.csproj", "{780C0FEB-1D46-498C-834D-FB086F9DD9A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduledMeets.Persistence.Tests", "server\src\ScheduledMeets.Persistance.Tests\ScheduledMeets.Persistence.Tests.csproj", "{780C0FEB-1D46-498C-834D-FB086F9DD9A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

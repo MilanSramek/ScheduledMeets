@@ -1,6 +1,6 @@
 ﻿namespace ScheduledMeets.View;
 
-public class UserView : IWithId
+public sealed class UserView : IWithId
 {
     public long Id { get; set; }
     public string Username { get; set; } = null!;

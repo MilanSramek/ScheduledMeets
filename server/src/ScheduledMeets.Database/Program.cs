@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using ScheduledMeets.Persistance;
+using ScheduledMeets.Persistence;
 
 using System.Reflection;
 
@@ -19,8 +19,10 @@ public class Program
         {
             IConfiguration configuration = hostContext.Configuration;
 
-            string connectionString = configuration.GetConnectionString("Database");
-            string password = configuration.GetValue<string>("Database:Password");
+            string connectionString = configuration.GetConnectionString("Database")
+                ?? throw new Exception("Unable to retrieve connection string.");
+            string password = configuration.GetValue<string>("Database:Password")
+                ?? throw new Exception("Unable to retrive database password.");
 
             services
                 .Configure<DbConnectionOptions>(_ =>

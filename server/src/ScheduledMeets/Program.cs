@@ -10,7 +10,7 @@ using ScheduledMeets.Business;
 using ScheduledMeets.Connectivity;
 using ScheduledMeets.Infrastructure;
 using ScheduledMeets.Internals.Authorization;
-using ScheduledMeets.Persistance;
+using ScheduledMeets.Persistence;
 using ScheduledMeets.View;
 
 using Serilog;

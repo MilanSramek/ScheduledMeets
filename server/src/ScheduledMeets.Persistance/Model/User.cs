@@ -1,6 +1,4 @@
-﻿using ScheduledMeets.View;
-
-namespace ScheduledMeets.Persistance.Model;
+﻿namespace ScheduledMeets.Persistence.Model;
 
 internal sealed class User
 {
@@ -11,5 +9,5 @@ internal sealed class User
     public string? Nickname { get; set; }
     public string? Email { get; set; }
 
-    public IEnumerable<Attendee>? Attendees { get; set; }
+    public IEnumerable<Member>? Attendees { get; set; }
 }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ScheduledMeets.Persistance.Model;
 
-namespace ScheduledMeets.Persistance;
+using ScheduledMeets.Persistence.Model;
+
+namespace ScheduledMeets.Persistence;
 
 sealed class AccessContext : DbContext
 {

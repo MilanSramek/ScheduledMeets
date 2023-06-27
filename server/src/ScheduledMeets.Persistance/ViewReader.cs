@@ -3,13 +3,13 @@ using AutoMapper.Extensions.ExpressionMapping.EF;
 
 using Microsoft.EntityFrameworkCore;
 
-using ScheduledMeets.Persistance.Helpers;
+using ScheduledMeets.Persistence.Helpers;
 using ScheduledMeets.View;
 
 using System.Collections;
 using System.Linq.Expressions;
 
-namespace ScheduledMeets.Persistance;
+namespace ScheduledMeets.Persistence;
 
 internal class ViewReader<TView, TModel> : IReader<TView> where TModel : class
 {

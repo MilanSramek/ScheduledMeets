@@ -6,10 +6,10 @@ using Microsoft.Extensions.Options;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 using ScheduledMeets.Business.Interfaces;
-using ScheduledMeets.Persistance.Model;
+using ScheduledMeets.Persistence.Model;
 using ScheduledMeets.View;
 
-namespace ScheduledMeets.Persistance;
+namespace ScheduledMeets.Persistence;
 
 public static class PersistanceRegistrations
 {
@@ -61,8 +61,10 @@ public static class PersistanceRegistrations
         services.AddOptions<DbConnectionOptions>()
             .Configure<IConfiguration>((connectionOptions, configuration) =>
             {
-                connectionOptions.ConnectionString = configuration.GetConnectionString("Database");
-                connectionOptions.Password = configuration.GetValue<string>("Database:Password");
+                connectionOptions.ConnectionString = configuration.GetConnectionString("Database")
+                    ?? throw new Exception("Unable to retrieve connection string.");
+                connectionOptions.Password = configuration.GetValue<string>("Database:Password")
+                    ?? throw new Exception("Unable to retrive database password.");
             });
 
         return services;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ScheduledMeets.Persistance.Model;
+namespace ScheduledMeets.Persistence.Model;
 
 static class ApplyingConfigurations
 {
@@ -9,7 +9,9 @@ static class ApplyingConfigurations
         ArgumentNullException.ThrowIfNull(modelBuilder);
         return modelBuilder
             .ApplyConfiguration(new UserConfiguration())
-            .ApplyConfiguration(new AttendeeConfigurationn())
-            .ApplyConfiguration(new MeetsConfiguration());
+            .ApplyConfiguration(new MemberConfiguration())
+            .ApplyConfiguration(new MeetsConfiguration())
+            .ApplyConfiguration(new MeetConfiguration())
+            .ApplyConfiguration(new AttendanceConfiguration());
     }
 }

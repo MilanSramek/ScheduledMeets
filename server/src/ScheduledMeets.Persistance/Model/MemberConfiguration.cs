@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ScheduledMeets.Persistance.Model;
+namespace ScheduledMeets.Persistence.Model;
 
-internal class AttendeeConfigurationn : IEntityTypeConfiguration<Attendee>
+internal sealed class MemberConfiguration : IEntityTypeConfiguration<Member>
 {
-    public void Configure(EntityTypeBuilder<Attendee> builder)
+    public void Configure(EntityTypeBuilder<Member> builder)
     {
         builder.HasKey(_ => _.Id);
 
@@ -17,7 +17,7 @@ internal class AttendeeConfigurationn : IEntityTypeConfiguration<Attendee>
 
         builder
             .HasOne(_ => _.Meets)
-            .WithMany(_ => _.Attendees)
+            .WithMany(_ => _.Members)
             .IsRequired();
         builder.HasIndex(_ => _.MeetsId);
     }

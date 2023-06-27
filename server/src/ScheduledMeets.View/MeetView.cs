@@ -1,14 +1,15 @@
-﻿using ScheduledMeets.Internals;
+﻿namespace ScheduledMeets.View;
 
-namespace ScheduledMeets.View;
-
-public class MeetView
+public class MeetView : IWithId
 {
     public long Id { get; set; }
-    public MeetsView Meets { get; set; } = null!;
 
-    //public Interval<DateTime> Period { get; set; }
+    public long MeetsId { get; set; }
 
-    public IEnumerable<AttendeeView> AcceptingAttendees { get; set; } = null!;
-    public IEnumerable<AttendeeView> DecliningAttendees { get; set; } = null!;
+    public DateTimeOffset From { get; set; }
+    public DateTimeOffset To { get; set; }
+
+    public IEnumerable<MemberView>? AcceptingAttendees { get; set; }
+    public IEnumerable<MemberView>? DecliningAttendees { get; set; }
+    public IEnumerable<MemberView>? IdleAttendees { get; set; }
 }

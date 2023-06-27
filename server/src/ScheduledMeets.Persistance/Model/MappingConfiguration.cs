@@ -3,7 +3,7 @@ using AutoMapper.Extensions.ExpressionMapping;
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ScheduledMeets.Persistance.Model;
+namespace ScheduledMeets.Persistence.Model;
 
 internal static class MappingConfiguration
 {

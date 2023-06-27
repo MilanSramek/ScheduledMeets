@@ -1,4 +1,4 @@
-﻿namespace ScheduledMeets.Persistance;
+﻿namespace ScheduledMeets.Persistence;
 public class DbConnectionOptions
 {
     public string ConnectionString { get; set; } = string.Empty;

@@ -1,6 +1,6 @@
-﻿namespace ScheduledMeets.Persistance.Model;
+﻿namespace ScheduledMeets.Persistence.Model;
 
-internal sealed class Attendee
+internal sealed class Member
 {
     public long Id { get; set; }
     internal string? Nickname { get; set; }
@@ -12,4 +12,6 @@ internal sealed class Attendee
     public Meets? Meets { get; set; }
 
     public bool IsOwner { get; set; }
+
+    public IEnumerable<Attendance>? Attendances { get; set; }
 }

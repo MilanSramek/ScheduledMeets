@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ScheduledMeets.Persistance.Model;
+namespace ScheduledMeets.Persistence.Model;
 
-class MeetsConfiguration : IEntityTypeConfiguration<Meets>
+internal sealed class MeetsConfiguration : IEntityTypeConfiguration<Meets>
 {
     public void Configure(EntityTypeBuilder<Meets> builder)
     {

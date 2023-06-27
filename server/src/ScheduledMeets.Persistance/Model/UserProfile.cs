@@ -3,9 +3,9 @@
 using ScheduledMeets.Core;
 using ScheduledMeets.View;
 
-namespace ScheduledMeets.Persistance.Model;
+namespace ScheduledMeets.Persistence.Model;
 
-internal class UserProfile : Profile
+internal sealed class UserProfile : Profile
 {
     public UserProfile()
     {

@@ -8,6 +8,6 @@ public static class ViewRegistrations
     {
         ArgumentNullException.ThrowIfNull(services);
         return services
-            .AddScoped<IAttendeeExtender, AttendeExtender>();
+            .AddScoped<IMemberExtender, MemberExtender>();
     }
 }

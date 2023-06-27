@@ -11,7 +11,7 @@ using static ScheduledMeets.Api.Authorization.PolicyConsts;
 namespace ScheduledMeets.Api;
 
 [QueryType]
-internal static class User_
+internal static class UserPoint
 {
     [Authorize(Policy = BeTheUser, Apply = ApplyPolicy.AfterResolver)]
     [GraphQLName("currentUser")]
@@ -31,7 +31,7 @@ internal static class User_
     [NodeResolver]
     [GraphQLName("user")]
     [GraphQLType<NonNullType<UserType>>]
-    public static ValueTask<UserView> GetUserAsync(
+    public static Task<UserView> GetUserAsync(
         long id,
         [Service]IWithIdReader<UserView> userReader,
         CancellationToken cancellationToken)

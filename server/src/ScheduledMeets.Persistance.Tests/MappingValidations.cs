@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 
-using ScheduledMeets.Persistance.Model;
+using ScheduledMeets.Persistence.Model;
 
-namespace ScheduledMeets.Persistance.Tests;
+namespace ScheduledMeets.Persistence.Tests;
 
 public class MappingValidations
 {

@@ -3,7 +3,7 @@ using AutoMapper.Extensions.ExpressionMapping.EF;
 
 using Microsoft.EntityFrameworkCore;
 
-using ScheduledMeets.Persistance.Model;
+using ScheduledMeets.Persistence.Model;
 using ScheduledMeets.TestTools.AsyncQueryables;
 using ScheduledMeets.TestTools.Extensions;
 using ScheduledMeets.View;
@@ -11,7 +11,7 @@ using ScheduledMeets.View;
 using System.Linq.Expressions;
 using System.Threading;
 
-namespace ScheduledMeets.Persistance.Tests;
+namespace ScheduledMeets.Persistence.Tests;
 
 public class UserMappingTests
 {
@@ -83,8 +83,8 @@ public class UserMappingTests
     [Test]
     public async Task QueryableMappingTest()
     {
-        IQueryable<User> users = new User[] 
-        { 
+        IQueryable<User> users = new User[]
+        {
             new()
             {
                 Id = 1
@@ -97,7 +97,7 @@ public class UserMappingTests
                 LastName = "TestLastName",
             },
         }.AsAsyncQueryable();
-        
+
 
         IQueryable<UserView> sut = users.UseAsAsyncDataSource(_mapper).For<UserView>();
         var ttt = await sut
@@ -107,10 +107,10 @@ public class UserMappingTests
             .Where(_ => _.Id == 2)
             .ToListAsync();
 
-        result.Should().BeEquivalentTo(new[] 
+        result.Should().BeEquivalentTo(new[]
         {
             new
-            { 
+            {
                 Id = 2,
                 Username = "TestUsername",
                 FirstName = "TestFirstName",

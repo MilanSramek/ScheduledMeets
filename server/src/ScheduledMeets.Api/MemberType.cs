@@ -2,9 +2,9 @@
 
 namespace ScheduledMeets.GraphQL;
 
-internal class AttendeeType : ObjectType<AttendeeView>
+internal class MemberType : ObjectType<MemberView>
 {
-    protected override void Configure(IObjectTypeDescriptor<AttendeeView> descriptor)
+    protected override void Configure(IObjectTypeDescriptor<MemberView> descriptor)
     {
         base.Configure(descriptor);
 

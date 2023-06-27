@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 using ScheduledMeets.Business.Interfaces;
 using ScheduledMeets.Core;
-using ScheduledMeets.Persistance.Helpers;
+using ScheduledMeets.Persistence.Helpers;
 
 using System.Collections;
 using System.Linq.Expressions;
 
-namespace ScheduledMeets.Persistance;
+namespace ScheduledMeets.Persistence;
 
-internal class ReadRepository<TEntity, TModel> : IReadRepository<TEntity> 
+internal class ReadRepository<TEntity, TModel> : IReadRepository<TEntity>
     where TEntity : IEntity
     where TModel : class
 {

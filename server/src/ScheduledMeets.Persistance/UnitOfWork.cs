@@ -1,6 +1,6 @@
 ﻿using ScheduledMeets.Business.Interfaces;
 
-namespace ScheduledMeets.Persistance;
+namespace ScheduledMeets.Persistence;
 
 internal class UnitOfWork : IUnitOfWork
 {
@@ -11,6 +11,6 @@ internal class UnitOfWork : IUnitOfWork
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public Task SaveChanges(CancellationToken cancellationToken = default) => 
+    public Task SaveChanges(CancellationToken cancellationToken = default) =>
         _context.SaveChangesAsync(cancellationToken);
 }
